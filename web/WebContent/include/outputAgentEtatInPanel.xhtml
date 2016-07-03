@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+	<p:panelGrid id="panelIdentite" columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2"> 
+			<h:outputText for="mat" value="Matricule" />
+		 	<h:outputText value="#{agentEtat.matricule}" rendered="#{solde==null}"/>
+			
+			<p:inputText id="matAgent" required="true"	value="#{agentEtat.matricule}" requiredMessage="#{valueRequiredMessage}" rendered="#{solde!=null}"  valueChangeListener="#{ctrl.matriculeListener}">
+					<p:ajax event="change"/>
+				<p:message for="@parent" />
+			</p:inputText>
+			
+			<h:outputText value="Nom et prénoms" />
+		 	<h:outputText value="#{agentEtat.nomPrenoms}" rendered="#{solde==null}"/>
+		 	
+		 	<p:inputText id="nomAgent" required="true"	value="#{agentEtat.nom}" requiredMessage="#{valueRequiredMessage}" rendered="#{solde!=null}" >
+		 		<p:message for="@parent" />
+		 	</p:inputText>
+		 	
+		 	<p:outputLabel for="sexe" value="Sexe" rendered="#{solde!=null}"/>			
+			<h:panelGroup rendered="#{solde!=null}">
+				<p:message for="sexe" rendered="#{solde!=null}"/>
+				<p:selectOneRadio id="sexe" value="#{agentEtat.sexe}" required="true" requiredMessage="#{valueRequiredMessage}"  rendered="#{solde!=null}">
+					<f:selectItems value="#{sexes}"/>
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</p:selectOneRadio>
+			</h:panelGroup>
+			
+			<p:outputLabel for="typePersonne" value="Type d'agent " rendered="#{solde!=null}"/>
+				<h:panelGroup rendered="#{solde!=null}">
+					<p:message for="typePersonne" />
+					<p:selectOneMenu id="typePersonne" value="#{agentEtat.type}" required="true"  
+						converter="#{objectConverter}"  binding="#{typePersonne}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{typeAgentEtatsFonctionnaire}" var="typeAgentEtat" itemLabel="#{typeAgentEtat.libelle}" />
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				
+				<!-- <p:outputLabel for="email" value="Email" />
+				<p:inputText id="email" value="#{agentEtat.contact.email}" required="#{required}"  rendered="#{solde!=null}"
+					validator="#{validationManager.validateAdresseElectroniqueCompte}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="typeEmail" value="#{typeEmail}" />
+					<p:message for="@parent" />
+				</p:inputText> -->
+	</p:panelGrid>			
+		 	<!--
+			<h:outputText value="Prenoms" />
+			<h:outputText value="#{agentEtat.prenoms}"/>
+			
+			<h:outputText value="Profession" rendered="#{profession==null or profession}"/>
+			<h:outputText value="#{agentEtat.profession}" rendered="#{profession==null or profession}"/>
+			
+			<h:outputText value="Fonction" rendered="#{fonction==null or fonction}"/>
+			<h:outputText value="#{agentEtat.fonction}" rendered="#{fonction==null or fonction}"/>
+		
+			<h:outputText value="Grade" rendered="#{grade==null or grade}"/>
+			<h:outputText value="#{agentEtat.grade}" rendered="#{grade==null or grade}"/>
+
+			<h:outputText value="Echelon" rendered="#{echelon==null or echelon}"/>
+			<h:outputText value="#{agentEtat.echelon}" rendered="#{echelon==null or echelon}"/>
+			-->
+		
+			
+	</ui:composition>
+</body>
+</html>

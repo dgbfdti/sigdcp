@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		<ui:param name="dialogReturnEnabled" value="false" />
+		<p:commandButton 
+			value="#{command.value}"  
+			icon="#{command.icon}" 
+			action="#{command.execute(executeObjectParam)}" 
+			
+			update="#{command.update}" 
+			rendered="#{not command.onlyActionListener and command.rendered}"
+			ajax="#{command.ajax}" 
+			immediate="#{command.immediate}"
+			process="#{command.process}"
+			type="#{command.type}"
+			onclick="#{command.onclick}"
+			oncomplete="#{command.oncomplete}"
+			onerror="#{command.onerror}" 
+			
+			actionListener="#{command.actionListener}">
+			
+			<p:ajax event="dialogReturn" listener="#{uiController.onDialogReturn}" />  
+			
+		</p:commandButton>
+		
+		<p:commandButton
+			value="#{command.value}"  
+			icon="#{command.icon}" 		
+			rendered="#{command.onlyActionListener and command.rendered}"	
+			actionListener="#{command.actionListener}">
+		</p:commandButton>
+		
+	</ui:composition>
+</body>
+</html>

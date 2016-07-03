@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		<table style="width: 100%;" border="0"><tr><td><div style="width: 100%;top:0px; background-color: #FFF;">
+			<div style="height:100px;margin-bottom:0px">
+			<table width="100%"><tr>
+				<td>
+					<h:link outcome="index">
+						<p:graphicImage value="/resources/images/imghead_left.jpg" style="float:left;height:95px"/>
+					</h:link>
+				</td>
+				<ui:fragment rendered="#{showConnexionEntete==null or showConnexionEntete}">
+				<td valign="top" align="right">
+					<ui:include src="/include/connexionForm_entete.xhtml" />			
+				</td></ui:fragment>
+			</tr></table></div>
+
+			<!--ui:fragment rendered="#{not empty request.remoteUser}">
+				<div class="ui-accordion-header ui-helper-reset ui-state-default" >
+					<div align="right">
+						<h:outputText value="#{userSessionManager.userInfosLine}" escape="false"/><p:spacer width="10"/>
+						<p:commandLink value="Se deconnecter" action="#{logoutController.defaultSubmitCommand.execute}" rendered="#{not empty request.remoteUser}"/>
+					</div>
+				</div>
+			</ui:fragment-->
+		</div></td></tr></table>
+
+	</ui:composition>
+</body>
+</html>

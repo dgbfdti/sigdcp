@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+    <navigation-case>
+   <from-outcome>tableaubord</from-outcome>
+   <to-view-id>/private/personnel/stats/tableaubord.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+     <navigation-case>
+	   <from-outcome>bilanlettreavance</from-outcome>
+	   <to-view-id>/private/personnel/stats/statistiquelettreavance.xhtml</to-view-id>
+	   <redirect/>
+ 	</navigation-case> 
+    <navigation-case>
+	   <from-outcome>statbilandd</from-outcome>
+	   <to-view-id>/private/personnel/stats/statistiquebilandepdef.xhtml</to-view-id>
+	   <redirect/>
+  	</navigation-case> 
+    <navigation-case>
+	   <from-outcome>statbilanobsq</from-outcome>
+	   <to-view-id>/private/personnel/stats/statistiquebilanobseque.xhtml</to-view-id>
+	   <redirect/>
+  	</navigation-case> 
+    <navigation-case>
+	   <from-outcome>statbilantr</from-outcome>
+	   <to-view-id>/private/personnel/stats/statistiquebilantransit.xhtml</to-view-id>
+	   <redirect/>
+  	</navigation-case> 
+    <navigation-case>
+	   <from-outcome>statbilanmis</from-outcome>
+	   <to-view-id>/private/personnel/stats/statistiquebilanmission.xhtml</to-view-id>
+	   <redirect/>
+  	</navigation-case>
+    <navigation-case>
+	   <from-outcome>situationindemnite</from-outcome>
+	   <to-view-id>/private/personnel/stats/situationindemnitetransport.xhtml</to-view-id>
+	   <redirect/>
+  	</navigation-case>
+    <navigation-case>
+	   <from-outcome>consomationindemnite</from-outcome>
+	   <to-view-id>/private/personnel/stats/consomationindemnitetransport.xhtml</to-view-id>
+	   <redirect/>
+  	</navigation-case>
+    <navigation-case>
+	   <from-outcome>consomationbilletlocalite</from-outcome>
+	   <to-view-id>/private/personnel/stats/consomationbilletavionlocalite.xhtml</to-view-id>
+	   <redirect/>
+  	</navigation-case>
+    <navigation-case>
+	   <from-outcome>consomationbilletprestataire</from-outcome>
+	   <to-view-id>/private/personnel/stats/consomationbilletavionprestataire.xhtml</to-view-id>
+	   <redirect/>
+  	</navigation-case>
+  
+	</navigation-rule>    
+    
+</faces-config>

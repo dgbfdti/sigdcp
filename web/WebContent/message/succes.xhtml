@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<h:body>
+
+		<ui:composition template="#{webConstantResources.pageTemplate}">
+			<ui:param name="templateController" value="#{actionMessageController}" />
+			<ui:define name="contenu">
+			
+				<table style="margin: auto;margin-top: 100px;"><tr><td>
+					<p:panel header="#{actionMessageController.title}">
+						<div style="width: 700px;">
+							<h:outputText value="#{actionMessageController.message}" escape="false"/>
+						</div>
+						<f:facet name="footer">
+							<div align="center">
+								<p:button value="Ok" icon="ui-icon-check"  href="#{actionMessageController.href}" rendered="#{not empty actionMessageController.href}"/> <!-- actionMessageController.showPageHeader -->
+								<h:form rendered="#{empty actionMessageController.href}"> <!-- actionMessageController.showPageHeader -->
+									<p:commandButton icon="ui-icon-check" value="Ok" actionListener="#{actionMessageController.close}"/>
+								</h:form>
+							</div>
+						</f:facet>
+					</p:panel>
+				</td> </tr> </table>
+			
+			</ui:define>
+	
+		</ui:composition>
+
+	</h:body>
+
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<ui:composition>
+		
+		<style>
+			.menuvertical{
+				width: 96% !important;
+				border: none !important;
+			}
+		</style>
+		
+		
+		<!--
+		<h:form rendered="#{not empty request.remoteUser}">
+			<p:menu model="#{menuModel}" styleClass="menuvertical" />
+		</h:form>
+		-->
+		
+		<h:form id="form2" rendered="#{not empty request.remoteUser}">  
+		    <p:tree value="#{menuModelTree}" var="node" id="tree" highlight="true" >  
+		        <p:ajax event="expand" listener="#{userSessionManager.onNodeExpand}" />  
+        		<p:ajax event="collapse" listener="#{userSessionManager.onNodeCollapse}" />
+		        <p:treeNode id="treeNode" expanded="#{node.expanded}" >
+		        	<table><tr>
+		        		<ui:fragment rendered="#{not empty node.icon}"><td><span class="ui-button-icon-left ui-icon ui-c #{node.icon}"></span></td></ui:fragment> 
+		        		<td><span onclick="#{node.onClick}"><h:outputText value="#{node.label}"/></span></td> 
+		        	</tr> </table>
+		        </p:treeNode>  
+		    </p:tree>  
+		</h:form> 
+		
+	</ui:composition>
+</body>
+</html>

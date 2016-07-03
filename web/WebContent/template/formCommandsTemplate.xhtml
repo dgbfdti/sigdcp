@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+ 	
+	<p:spacer height="#{spacerHeight}" />
+	<table border="0" style="float: right;" class="formTableCommand"><tr><td>
+		
+		<p:button value="#{constantResources.text('bouton.fermer')}" icon="ui-icon-close" rendered="#{uiController.closeCommand.rendered}" onclick="#{uiController.closeCommand.onclick}"/>
+			
+		<!-- <ui:include src="/resources/include/component/formCommand.xhtml" >
+			<ui:param name="command" value="#{uiController.closeCommand}" />
+		</ui:include> -->
+		
+		<ui:include src="/resources/include/component/formCommand.xhtml" >
+			<ui:param name="command" value="#{uiController.wizardHelper.previous}" />
+		</ui:include>	
+		
+		<ui:include src="/resources/include/component/formCommand.xhtml" >
+			<ui:param name="command" value="#{uiController.wizardHelper.next}" />
+		</ui:include>	
+			
+		<ui:insert name="actions" />
+		
+		<ui:include src="/resources/include/component/formCommand.xhtml" >
+			<ui:param name="command" value="#{uiController.defaultSubmitCommand}" />
+		</ui:include>
+	</td></tr></table>
+			
+		
+		
+</ui:composition>

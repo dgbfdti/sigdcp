@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form rendered="true">
+
+		<p:panel header="LES DEPENSES PRISES EN CHARGE PAR LE SIGDCP" style="width:400px;">
+
+			<p:accordionPanel value="#{publicHomeController.serviceProposeDtos}" var="serviceDto" activeIndex="-1">
+				<p:tab title="#{serviceDto.title}" style=" text-align:left">
+					
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt"><h:outputText value="#{serviceDto.descriptionApercu}" escape="false"/></p>
+							
+					<div style="text-align: right; margin: 25px">
+						<p:button icon="ui-icon-search" outcome="#{serviceDto.outcome}" value="Lire plus" >
+							<f:param name="#{serviceDto.lirePlusRequestParamName}" value="#{serviceDto.lirePlusRequestParamValue}"/>
+						</p:button>
+					</div>
+						
+				</p:tab>
+			</p:accordionPanel>
+		</p:panel>
+
+	</h:form>
+
+
+</h:body>
+
+</html>
