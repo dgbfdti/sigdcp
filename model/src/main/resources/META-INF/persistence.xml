@@ -28,7 +28,7 @@
 			<!--
 			<property name="eclipselink.ddl-generation.output-mode" value="database" />
 			-->
-			<property name="eclipselink.target.server" value="JBoss" />
+			<!--property name="eclipselink.target.server" value="JBoss" /-->
 			
 			<property name="eclipselink.create-ddl-jdbc-file-name" value="sigdcpCreateDDL_ddlGeneration.jdbc"/>
             <property name="eclipselink.drop-ddl-jdbc-file-name" value="sigdcpDropDDL_ddlGeneration.jdbc"/>
