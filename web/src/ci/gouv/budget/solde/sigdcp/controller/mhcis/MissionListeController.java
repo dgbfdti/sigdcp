@@ -42,7 +42,6 @@ public class MissionListeController extends AbstractEntityListUIController<Calen
 	@Override
 	public void initialisation() {
 		super.initialisation();	
-		System.out.println("MissionListeController.initialisation()"+nextViewOutcome);
 		title = "Ecran de suivi de l'exécution des missions";
 		internalCode = "FS_MHCI_04_Ecran_01";
 	}

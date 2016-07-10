@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
 public class Config {
 	
 	public Config() {
-		System.out.println("Config.Config()");
+		
 	}
 	
     @PostConstruct

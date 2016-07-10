@@ -35,7 +35,6 @@ public class DossierObsequesServiceImpl extends AbstractDossierServiceImpl<Dossi
 	
 	@Override
 	protected void validationSaisie(DossierObseques dossier, Boolean soumission) throws ServiceException {
-		System.out.println("ZZZZZZZ Ayant droit : "+ToStringBuilder.reflectionToString(dossier.getBeneficiaire().getAyantDroit(),ToStringStyle.MULTI_LINE_STYLE));
 		dossierObsequesValidator.setSoumission(soumission);
 		if(!dossierObsequesValidator.validate(dossier).isSucces())
 			throw new ServiceException(dossierObsequesValidator.getMessagesAsString());

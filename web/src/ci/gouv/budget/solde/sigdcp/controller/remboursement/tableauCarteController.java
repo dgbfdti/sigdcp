@@ -47,9 +47,7 @@ public class tableauCarteController implements Serializable{
     {
 		visible=true;
 
-/*    		   System.out.println("total Mutations :" +totMU);
-    		   System.out.println("total Affectations :" +totAF);
-    		   System.out.println("total D�parts � la retraite :" +totDR);*/
+
     		
       }
   

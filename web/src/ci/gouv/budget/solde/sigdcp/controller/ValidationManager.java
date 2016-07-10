@@ -198,7 +198,6 @@ public class ValidationManager implements Serializable {
 	
 	public void validateDateDepart(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
-			//System.out.println(value);
 			validation.validateDateDepart(attribute(uiComponent, TypeDepense.class, "typeDepense"),(AgentEtat) uiComponent.getAttributes().get("agentEtat"),
 					(Date) value,attribute(uiComponent, Date.class, "datePriseService",true),attribute(uiComponent, Date.class, "dateFinService",true));
 		} catch (Exception e) {
@@ -274,7 +273,6 @@ public class ValidationManager implements Serializable {
 	public void validatePieceJustificativeNumero(FacesContext facesContext,UIComponent uiComponent,Object value){
 		
 		try {
-			//System.out.println( uiComponent.getAttributes().get("fichier") );
 			//UploadedFile file = (UploadedFile) attribute(uiComponent, FileUpload.class, "fichier").getValue();
 			InfosFichierATelecharger fichier = null;//new InfosFichierATelecharger(file.getFileName(),file.getSize());
 			Date dateEtatblissement = null;//attribute(uiComponent, Date.class, "dateEtablissement");

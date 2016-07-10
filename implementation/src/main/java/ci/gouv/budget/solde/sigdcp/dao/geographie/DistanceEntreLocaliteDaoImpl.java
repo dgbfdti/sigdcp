@@ -16,7 +16,6 @@ public class DistanceEntreLocaliteDaoImpl extends JpaDaoImpl<DistanceEntreLocali
 
 	@Override
 	public DistanceEntreLocalite readByLocalite1ByLocalite2(Localite localite1, Localite localite2) {
-		System.out.println("LOC 1:"+localite1.getCode()+" ### LOC 2:"+localite2.getCode());
 		try{
 			return entityManager.createQuery("SELECT dl FROM DistanceEntreLocalite dl WHERE "
 					+ " (dl.id.localite1 = :localite1Code AND dl.id.localite2 = :localite2Code) OR "

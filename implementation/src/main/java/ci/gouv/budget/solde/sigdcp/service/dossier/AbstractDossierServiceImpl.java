@@ -551,8 +551,6 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	@Override
 	public Collection<DOSSIER> findByBordereauId(Long bordereauTransmissionId) {
-		//System.out.println(bordereauTransmissionId);
-		//System.out.println(((AbstractDossierDao<DOSSIER>)dao).readByBordereauId(bordereauTransmissionId));
 		return null;//dtos(null,((AbstractDossierDao<DOSSIER>)dao).readByBordereauId(bordereauTransmissionId));
 	}
 	

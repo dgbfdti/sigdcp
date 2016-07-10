@@ -27,7 +27,7 @@ public class AgentMissionReferenceServiceImpl extends DefaultServiceImpl<AgentMi
 		Long matricule = agentMissionReferenceDao.readLastMatricule();
 		matricule+=1;
 		agentMissionReference.setMatricule(matricule);
-		System.out.println(matricule+" : Existe = "+(agentMissionReferenceDao.read(matricule)!=null));	
+		
 			if(agentMissionReferenceDao.read(matricule)==null)
 				agentMissionReferenceDao.create(agentMissionReference); 
 			else 

@@ -67,7 +67,6 @@ public class MissionExecuteeServiceImpl extends DefaultServiceImpl<MissionExecut
 		if(!validator.isSucces())
 			serviceException(validator.getMessagesAsString());
 		*/
-		//System.out.println("TYPE ACTION : "+actionType);
 		
 		switch(actionType){
 		case ENREGISTRER:
@@ -83,11 +82,9 @@ public class MissionExecuteeServiceImpl extends DefaultServiceImpl<MissionExecut
 		//validator.setDossiers(dossiers);
 		//validator.setPieceJustificatives(pieceJustificatives);
 		validate(validator, missionExecutee);
-		System.out.println("UPD : "+missionExecutee.getDeplacement().getDateDepart());
 		//daoCreateHelper.init();
 		if(((MissionExecuteeDao)dao).exist(missionExecutee.getId())){
 			//Iterator<Collection<PieceJustificative>> iterator = pieceJustificatives.iterator();
-			System.out.println("UPD 01 : "+missionExecutee.getDeplacement().getDateDepart());
 			deplacementDao.update(missionExecutee.getDeplacement());
 			for(DossierMission dossier : missionExecutee.getDossiers()){
 				if(dossierDao.exist(dossier.getId())){

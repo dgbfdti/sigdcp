@@ -35,7 +35,6 @@ public class StatistiqueDeplacementDefinitifController extends AbstractStatistiq
 
 	@Override
 	protected List<NatureDeplacement> load() {
-		System.out.println("StatistiqueDeplacementDefinitifController.load()"+detailObjets);
 		return super.load();
 		
 	}

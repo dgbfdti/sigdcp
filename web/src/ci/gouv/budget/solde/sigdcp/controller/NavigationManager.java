@@ -53,7 +53,6 @@ public class NavigationManager implements Serializable {
 	public String url(String id,Object[] parameters,Boolean actionOutcome,Boolean partial){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		NavigationCase navigationCase = ((ConfigurableNavigationHandler)facesContext.getApplication().getNavigationHandler()).getNavigationCase(facesContext, null, id);
-		//System.out.println(id+" / "+navigationCase);
 		if(navigationCase==null){
 			log.severe("No Navigation Case found for "+id);
 			return url(OUTCOME_NOT_FOUND, new Object[]{"oc",id});
@@ -97,7 +96,6 @@ public class NavigationManager implements Serializable {
 	
 	public String getRequestUrl(){
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		//System.out.println(request.getQueryString());
 		String url = request.getRequestURL().toString();
 		if(StringUtils.isNotEmpty(request.getQueryString()))
 			url += NavigationHelper.QUERY_START+request.getQueryString();

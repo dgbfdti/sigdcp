@@ -31,7 +31,6 @@ public class ConsulterCalendrierListeController extends AbstractEntityListUICont
 		super.initialisation();
 		title = "Ecran de consultation de calendrier des missions";
 		internalCode = "FS_MHCI_03_Ecran_04";
-		System.out.println(nextViewOutcome);
 	}
 
 	@Override

@@ -47,8 +47,6 @@ public class DemandeCotationFoFormController extends AbstractEntityFormUIControl
 		
 		title="Demande de cotation de la demande N° "+entity.getDossier().getId();
 		
-		System.out.println("Contenu dossier FO : ");
-		System.out.println(ToStringBuilder.reflectionToString(entity.getDossier(), ToStringStyle.MULTI_LINE_STYLE));
 		
 		defaultSubmitCommand.setRendered(true);
 

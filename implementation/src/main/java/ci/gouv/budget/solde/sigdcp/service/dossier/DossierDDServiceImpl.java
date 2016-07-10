@@ -39,8 +39,6 @@ public class DossierDDServiceImpl extends AbstractDossierServiceImpl<DossierDD> 
 		
 	@Override
 	protected void validationSaisie(DossierDD dossier,Boolean soumission)throws ServiceException {
-		//System.out.println("DossierDDServiceImpl.validationSaisie() : ");
-		//System.out.println(ToStringBuilder.reflectionToString(dossier, ToStringStyle.MULTI_LINE_STYLE));
 		dossierDDValidator.setSoumission(soumission);
 		if(!dossierDDValidator.validate(dossier).isSucces())
 			throw new ServiceException(dossierDDValidator.getMessagesAsString());

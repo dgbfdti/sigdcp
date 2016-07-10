@@ -7,12 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.omnifaces.util.Faces;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;
@@ -23,6 +18,8 @@ import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
 import ci.gouv.budget.solde.sigdcp.service.utils.TextService;
+import lombok.Getter;
+import lombok.Setter;
 
 @Named @SessionScoped 
 public class UserSessionManager implements Serializable{
@@ -102,7 +99,6 @@ public class UserSessionManager implements Serializable{
 	}
 	
 	public String getUserInfosLine(){
-		System.out.println(ToStringBuilder.reflectionToString(compteUtilisateur.getUtilisateur(), ToStringStyle.MULTI_LINE_STYLE));
 		if(compteUtilisateur==null)
 			return null;
 		if(compteUtilisateur.getUtilisateur() instanceof Personne)
