@@ -12,15 +12,17 @@
 			<h:outputText for="mat" value="Matricule" />
 		 	<h:outputText value="#{agentEtat.matricule}" rendered="#{solde==null}"/>
 			
-			<p:inputText id="matAgent" required="true"	value="#{agentEtat.matricule}" requiredMessage="#{valueRequiredMessage}" rendered="#{solde!=null}"  valueChangeListener="#{ctrl.matriculeListener}">
-					<p:ajax event="change"/>
+			<p:inputText id="matAgent" required="true"	value="#{agentEtat.matricule}" requiredMessage="#{valueRequiredMessage}" rendered="#{solde!=null}"  
+				valueChangeListener="#{ctrl.matriculeListener}" onkeyup="value=value.toUpperCase();">
+				<p:ajax event="change" update="panelIdentite"/>
 				<p:message for="@parent" />
 			</p:inputText>
 			
 			<h:outputText value="Nom et prénoms" />
 		 	<h:outputText value="#{agentEtat.nomPrenoms}" rendered="#{solde==null}"/>
 		 	
-		 	<p:inputText id="nomAgent" required="true"	value="#{agentEtat.nom}" requiredMessage="#{valueRequiredMessage}" rendered="#{solde!=null}" >
+		 	<p:inputText id="nomAgent" required="true"	value="#{agentEtat.nom}" requiredMessage="#{valueRequiredMessage}" rendered="#{solde!=null}" 
+		 		onkeyup="value=value.toUpperCase();">
 		 		<p:message for="@parent" />
 		 	</p:inputText>
 		 	

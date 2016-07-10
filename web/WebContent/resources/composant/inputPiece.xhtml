@@ -170,7 +170,7 @@
 		
 	</p:dataTable>	
 				
-	<p:dialog widgetVar="imageDialog#{cc.id}" modal="true" appendTo="@(Body)" position="top" resizable="false" draggable="false"> 
+	<p:dialog widgetVar="imageDialog#{cc.id}" modal="true" appendTo="@(Body)" position="top" resizable="true" draggable="true"> 
 	    <f:facet name="header"><p:outputPanel id="imageDialogHeader">
 	    	<h:outputText value="#{cc.attrs.uploader.pieceJustificativeSelectionne.model.typePieceJustificative}" />
 	    	<h:outputText value=" N° #{cc.attrs.uploader.pieceJustificativeSelectionne.numero}" />

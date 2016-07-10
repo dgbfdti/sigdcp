@@ -139,7 +139,7 @@
 					<p:selectOneMenu id="serviceOrigine" value="#{controller.entity.serviceOrigine}" required="#{requiredEnabled}"  converter="#{objectConverter}" 
 					rendered="#{controller.showServiceOrigine and (editable==null or editable)}">
 						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
-						<f:selectItems value="#{sections}"/>
+						<f:selectItems value="#{ministeres}"/>
 						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 					</p:selectOneMenu>		
 				</h:panelGroup>	

@@ -236,9 +236,12 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 	public void matriculeListener(ValueChangeEvent valueChangeEvent){
 		AgentEtat agentEtat = agentEtatService.findByMatriculeByReference((String) valueChangeEvent.getNewValue());
 		//entity.getBeneficiaire().setMatricule((String) valueChangeEvent.getNewValue());
-		entity.getBeneficiaire().setDateNaissance(agentEtat.getDateNaissance());
+		if(agentEtat==null)
+			;
+		else
+			entity.setBeneficiaire(agentEtat);
+		//entity.getBeneficiaire().setDateNaissance(agentEtat.getDateNaissance());
 		//System.out.println("FaireDemandeDDController.matriculeListener()"+entity.getBeneficiaire().getDateNaissance());
-		
 	}
 	
 	

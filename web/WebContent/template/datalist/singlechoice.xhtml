@@ -40,7 +40,7 @@
 			<ui:insert name="infos" />
 		</p:outputPanel>
 		<p:dataTable id="datatable" value="#{controller.list}" var="record" rowIndexVar="index" rowKey="#{record[controller.recordIdentifierFieldName]}" 
-			selection="#{controller.selectedOne}" rowStyleClass="#{controller.rowStyleClass(record)}"> 
+			selection="#{controller.selectedOne}" rowStyleClass="#{controller.rowStyleClass(record)}" emptyMessage="Aucun enregistrement trouvé"> 
 			
 			<f:facet name="header">
 				<h:outputText value="#{controller.listTitle}" />
