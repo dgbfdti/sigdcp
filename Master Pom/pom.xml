@@ -52,6 +52,15 @@
 		</repository>
 	</repositories>
 
+	<modules>
+		<module>../model</module> 
+		<module>../dao-interfaces</module>
+		<module>../service-interfaces</module>
+		<module>../implementation</module>
+		<module>../web</module>
+		<module>../application</module>
+	</modules> 
+
 	<build>
 		<!--
 		<resources>

@@ -9,7 +9,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.BulletinLiquidation.AspectLiqui
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
 public class ServiceUtils {
-	
+	 
 	//@Inject @Getter private PersistenceUtils persistenceUtils;
 	
 	public void throwNotYetImplemented(){

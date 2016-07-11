@@ -29,9 +29,10 @@ public class AgentEtatServiceImpl extends AbstractPersonneServiceImpl<AgentEtat>
 			AgentEtat agentEtat=null;
 			agentEtat=findByMatricule(matricule);				
 			if(agentEtat==null){ 
-				agentEtat  = new AgentEtat();
+				//agentEtat  = new AgentEtat();
 				AgentEtatReference agentEtatReference=agentEtatReferenceDao.read(matricule);
 				if(agentEtatReference!=null){
+					agentEtat  = new AgentEtat();
 					agentEtat.setMatricule(agentEtatReference.getMatricule());
 					agentEtat.setDateNaissance(agentEtatReference.getDateNaissance());
 				}				
