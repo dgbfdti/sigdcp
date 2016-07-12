@@ -42,6 +42,8 @@ public class IndemniteCalculateurServiceImpl implements IndemniteCalculateurServ
 			bulletinLiquidation.setMontant(bulletinLiquidation.getMontant().add(resultat));
 			bulletinLiquidation.getIndemniteCalculees().add(new IndemniteCalculee(ict.getId(),resultat,genericDao.readByClass(RegleCalcul.class,ict.getId().getIndeminiteId())));
 		}
+		//System.out.println(bulletinLiquidation.getMontant());
+		//System.out.println(bulletinLiquidation.getIndemniteCalculees());
 	}
 
 	@Override

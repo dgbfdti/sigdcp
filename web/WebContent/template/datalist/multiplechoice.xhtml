@@ -39,14 +39,21 @@
 		<p:outputPanel id="infosop" >
 			<ui:insert name="infos" />
 		</p:outputPanel>
+		
 		<p:dataTable id="datatable" value="#{controller.list}" var="record" rowIndexVar="index" rowKey="#{record[controller.recordIdentifierFieldName]}" 
-			selection="#{controller.selectedMultiple}" rowStyleClass="#{controller.rowStyleClass(record)}" rowSelectMode="add" emptyMessage="Aucun enregistrement trouvé"> 
+			selection="#{controller.selectedMultiple}" rowStyleClass="#{controller.rowStyleClass(record)}" rowSelectMode="add" emptyMessage="Aucun enregistrement trouvé"
+			 disabledSelection="false" > 
 			
 			<f:facet name="header">
 				<h:outputText value="#{controller.listTitle}" />
 			</f:facet>
 			
-			<p:column selectionMode="multiple" width="1%" rendered="#{controller.showCheckBox}"/>
+			<p:ajax event="rowSelectCheckbox" update="datatable" />
+			<p:ajax event="rowUnselectCheckbox" update="datatable" />
+			<p:ajax event="rowSelect" update="datatable" />
+			<p:ajax event="rowUnselect" update="datatable" />
+			
+			<p:column selectionMode="multiple" width="1%" rendered="#{controller.showCheckBox}" />
 			<p:column headerText="#">
 				<span class="ui-message-#{controller.rowSeverity(record)}-icon"/>
 				<h:outputText value="#{index+1}" />

@@ -243,7 +243,14 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	/**/
 	
 	protected void validationSaisie(DOSSIER dossier,Boolean soumission) throws ServiceException{
-		
+		if(Boolean.TRUE.equals(soumission)){
+			/*Toutes les pièces doivent être jointes*/
+			for(PieceJustificative pieceJustificative : dossier.getPieceJustificatives())
+				if(pieceJustificative.getFichier()==null || pieceJustificative.getFichier().getBytes()==null || pieceJustificative.getFichier().getInputStream()==null)
+					serviceException("Toutes les pièces justificatives doivent être jointes !");
+		}else{
+			
+		}
 	}
 	
 	public void saisir(Operation operation,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives){

@@ -59,8 +59,6 @@ public class LiquiderController extends AbstractEntityFormUIController<BulletinL
 				private static final long serialVersionUID = 4833259507611607789L;
 				@Override
 				protected Object __execute__(Object object) throws Exception {
-					System.out
-							.println("LiquiderController.initialisation().new Action() {...}.__execute__()");
 					indemniteCalculateurService.calculer(entity);
 					calculerTotalPaye();
 					return null;

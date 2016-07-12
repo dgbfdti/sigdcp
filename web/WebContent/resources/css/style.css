@@ -238,6 +238,13 @@ box-shadow: 1px 1px 10px #F0F0F0; -moz-box-shadow: 1px 1px 10px #F0F0F0; -webkit
 	
 }
 
+.montantClass{
+	text-align: right;
+}
+.dateCreationClass{
+	text-align: center;
+}
+
 /* .ui-panel-title, .ui-panel-titlebar {
     text-align: justify !important;
     font-size: 10pt;

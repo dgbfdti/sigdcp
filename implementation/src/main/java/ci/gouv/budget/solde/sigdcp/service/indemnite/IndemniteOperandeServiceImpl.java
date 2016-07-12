@@ -35,7 +35,6 @@ public class IndemniteOperandeServiceImpl implements IndemniteOperandeService , 
 
 	@Override
 	public int distance(Dossier dossier) {
-		System.out.println("DEP_LOC_DEP :"+dossier.getDeplacement().getLocaliteDepart().getCode()+"---->"+"DEP_LOC_ARR :"+dossier.getDeplacement().getLocaliteArrivee().getCode());
 		return distanceEntreLocaliteDao.readByLocalite1ByLocalite2(dossier.getDeplacement().getLocaliteDepart(), dossier.getDeplacement().getLocaliteArrivee())
 				.getDistanceKm().intValue();
 	} 
@@ -67,9 +66,6 @@ public class IndemniteOperandeServiceImpl implements IndemniteOperandeService , 
 	
 	@Override
 	public int poidsAgent(GroupeDD groupeDD) {
-		System.out.println("Groupe :"+groupeDD);
-		System.out.println("Groupe CODE :"+groupeDD.getCode());
-		System.out.println("POIDS : "+groupeDD.getPoidsAutoriseAgent());
 		return groupeDD.getPoidsAutoriseAgent().intValue();
 	}
 

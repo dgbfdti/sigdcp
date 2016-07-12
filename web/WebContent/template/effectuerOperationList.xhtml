@@ -23,7 +23,7 @@
 				<p:selectOneMenu id="natureDep" value="#{effectuerOperationController.natureDeplacement}" converter="#{objectConverter}" 
 					valueChangeListener="#{effectuerOperationController.natureDeplacementChange}">
 					<f:selectItems value="#{effectuerOperationController.items}" />
-					<p:ajax event="change" process="crpg" />
+					<p:ajax event="change" process="crpg" update="@form"/>
 				</p:selectOneMenu>
 				
 				<p:selectOneRadio id="aspect" value="#{effectuerOperationController.aspectLiquide}" rendered="#{effectuerOperationController.showAspectLiquide}" 
@@ -64,14 +64,14 @@
 				<h:outputText value="#{controller.numero2(record)}" />
 			</p:column>
 			
-			<p:column headerText="#{constantResources.text('datecreation')}" rendered="#{controller.showDateCreation}">
+			<p:column headerText="#{constantResources.text('datecreation')}" styleClass="dateCreationClass" rendered="#{controller.showDateCreation}">
 				<h:outputText value="#{controller.dateCreation(record)}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 			</p:column>
 			
 			<ui:insert name="colonnesDetails" />
 			
-			<p:column headerText="#{constantResources.text('montant')} (CFA)" sortBy="#{effectuerOperationController.depense(record)}" filterBy="#{effectuerOperationController.depense(record)}" 
-				rendered="#{effectuerOperationController.showMontant}">
+			<p:column headerText="#{constantResources.text('montant')} (CFA)" sortBy="#{record.montant}" filterBy="#{record.montant}" 
+				rendered="#{effectuerOperationController.showMontant}" styleClass="montantClass">
 				<h:outputText id="depense" value="#{effectuerOperationController.depense(record)}" ><f:convertNumber  currencySymbol="CFA" maxFractionDigits="0" type="number" /> </h:outputText>
 				<!--
 				<p:panelGrid columns="2">
@@ -92,7 +92,7 @@
 			<p:column headerText="#{constantResources.text('validation')}" rendered="#{effectuerOperationController.showValidation}">
 				<p:outputPanel>
 					<ui:fragment rendered="#{effectuerOperationController.isSelected(record)}">
-						<p:selectOneMenu id="action" value="#{record.traitable.traitement.validationType}" required="true" label="Action"
+						<p:selectOneMenu id="action" value="#{record.traitable.traitement.validationType}" required="false" label="Action"
 							valueChangeListener="#{effectuerOperationController.onValidationTypeChange}">
 							<f:selectItem noSelectionOption="" itemLabel="-- Action --"/>
 							<f:selectItems value="#{effectuerOperationController.validations(record)}" /> 

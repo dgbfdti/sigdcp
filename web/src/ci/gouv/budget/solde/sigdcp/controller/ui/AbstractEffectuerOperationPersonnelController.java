@@ -255,7 +255,10 @@ public abstract class AbstractEffectuerOperationPersonnelController<DATA extends
 		return new ArrayList<>(natureOperationDto.getValidationTypes());
 	}
 	
-	public void natureDeplacementChange(ValueChangeEvent valueChangeEvent){}
+	public void natureDeplacementChange(ValueChangeEvent valueChangeEvent){
+		natureDeplacement = (NatureDeplacement) valueChangeEvent.getNewValue();
+		onSearchCommandAction();
+	}
 	
 	public void aspetLiquideChange(ValueChangeEvent valueChangeEvent){}
 	

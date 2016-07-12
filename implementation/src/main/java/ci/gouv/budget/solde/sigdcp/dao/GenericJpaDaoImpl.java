@@ -61,7 +61,7 @@ public class GenericJpaDaoImpl implements GenericDao , Serializable {
 	
 	@Override
 	public <TYPE> List<TYPE> readAllByClass(Class<TYPE> aClass, String critere) {
-		return (List<TYPE>) entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity ORDER  BY entity."+critere+" ASC", aClass)
+		return (List<TYPE>) entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity ORDER BY entity."+critere+" ASC", aClass)
 				.getResultList();
 	}
 
