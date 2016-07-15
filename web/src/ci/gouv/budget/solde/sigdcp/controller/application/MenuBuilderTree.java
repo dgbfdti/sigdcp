@@ -330,6 +330,7 @@ public class MenuBuilderTree implements Serializable {
 	private void parametrage(){
 		TreeNode block = menuManager.addSubmenu("menu.entitereference",null);
 		menuManager.addMenuItem(block,"menu.entitereference.agentetat",null, "paramagentetat",new Object[]{});
+		menuManager.addMenuItem(block,"menu.entitereference.typeagentetat",null, "paramtypeagentetat",new Object[]{});
 		
 		menuManager.addMenuItem(block,"menu.entitereference.categorie",null, "paramcategorie",new Object[]{});
 		menuManager.addMenuItem(block,"menu.entitereference.grade",null, "paramgrade",new Object[]{});

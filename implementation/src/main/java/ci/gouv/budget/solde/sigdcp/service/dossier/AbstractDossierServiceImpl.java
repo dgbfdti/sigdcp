@@ -1,7 +1,6 @@
 package ci.gouv.budget.solde.sigdcp.service.dossier;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -44,9 +43,6 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.dossier.ValidationType;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
-import ci.gouv.budget.solde.sigdcp.model.indemnite.Cercueil;
-import ci.gouv.budget.solde.sigdcp.model.indemnite.IndemniteCalculee;
-import ci.gouv.budget.solde.sigdcp.model.indemnite.RegleCalcul;
 import ci.gouv.budget.solde.sigdcp.model.traitement.NatureOperation;
 import ci.gouv.budget.solde.sigdcp.model.traitement.Operation;
 import ci.gouv.budget.solde.sigdcp.model.traitement.OperationValidationConfig;
@@ -313,8 +309,13 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 			pieceJustificative.setDossier(dossier);
 			if(pieceJustificativeDao.exist(pieceJustificative.getId())){
 				pieceJustificativeDao.update(pieceJustificative);
-			}else if(StringUtils.isNotEmpty(pieceJustificative.getNumero()))
-				pieceJustificativeDao.create(pieceJustificative);
+			}else {
+				Boolean required = Boolean.TRUE.equals(pieceJustificative.getModel().getConfig().getPrincipale()) ||
+						Boolean.TRUE.equals(pieceJustificative.getModel().getConfig().getDerivee()) || Boolean.TRUE.equals(pieceJustificative.getModel().getConfig().getDerivee());
+				if(StringUtils.isNotEmpty(pieceJustificative.getNumero()) 
+						|| ( !required &&  pieceJustificative.getFichier()!=null && pieceJustificative.getFichier().getBytes()!=null && pieceJustificative.getDateEtablissement()!=null) )
+					pieceJustificativeDao.create(pieceJustificative);
+			}
 				
 		}
 	}

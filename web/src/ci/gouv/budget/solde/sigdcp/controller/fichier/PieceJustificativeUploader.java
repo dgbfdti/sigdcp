@@ -74,6 +74,8 @@ public class PieceJustificativeUploader implements Serializable {
 			if(dto.getFile()!=null){
 				
 				dto.getPiece().setFichier(fichierService.convertir(IOUtils.toByteArray(dto.getFile().getInputstream()),dto.getFile().getFileName() ));
+				//if(dto.getPiece().getFichier().getBytes()!=null)
+				//	System.out.println("PJ : "+dto.getLibelle()+" , File : "+dto.getPiece().getFichier().getBytes().length);
 			}
 			pieceJustificatives.add(dto.getPiece());
 		}

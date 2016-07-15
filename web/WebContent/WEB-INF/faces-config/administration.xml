@@ -158,6 +158,11 @@
    <to-view-id>/private/personnel/references/responsable/agentetat.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>paramtypeagentetat</from-outcome>
+   <to-view-id>/private/personnel/references/responsable/typeagentetat.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
  </navigation-rule>
  <application/>
 </faces-config>
