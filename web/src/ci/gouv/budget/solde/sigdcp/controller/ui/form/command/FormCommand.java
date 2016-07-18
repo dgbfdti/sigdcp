@@ -98,7 +98,7 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 					form.getMessageManager().addError(cause);
 				else{
 					form.getMessageManager().addError("Une erreur est servenue lors de l'execution de l'operation."
-							+ "Veuillez contactez l'administrateur du système",false);
+							+ "Veuillez contactez l'administrateur du système.<br/><br/>Détails : "+cause.toString(),false);
 					cause.printStackTrace();
 					
 				}
