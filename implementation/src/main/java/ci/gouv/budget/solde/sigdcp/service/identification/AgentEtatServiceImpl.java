@@ -34,7 +34,9 @@ public class AgentEtatServiceImpl extends AbstractPersonneServiceImpl<AgentEtat>
 				if(agentEtatReference!=null){
 					agentEtat  = new AgentEtat();
 					agentEtat.setMatricule(agentEtatReference.getMatricule());
+					agentEtat.setNom(agentEtatReference.getNomPrenoms());
 					agentEtat.setDateNaissance(agentEtatReference.getDateNaissance());
+					agentEtat.setType(agentEtatReference.getType());
 				}				
 			}					
 		return agentEtat;

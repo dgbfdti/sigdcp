@@ -12,8 +12,8 @@
 	<ui:decorate template="/template/formTemplate.xhtml">
 		<ui:param name="uiController" value="#{faireDemandeController}" />
 		<ui:define name="contenu">	
-			<p:tabView>
-				<p:tab title="Demande #{faireDemandeController.read or faireDemandeController.update?faireDemandeController.entity.numero:null}">
+			<p:tabView id="demandeTabView">
+				<p:tab id="demandeTab" title="Demande #{faireDemandeController.read or faireDemandeController.update?faireDemandeController.entity.numero:null}">
 					<ui:insert name="demande"/>
 				</p:tab>
 				<p:tab title="Indemnités" rendered="#{faireDemandeController.showIndemnite}">

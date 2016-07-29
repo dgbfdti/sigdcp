@@ -12,9 +12,9 @@
 		<!--jta-data-source>java:app/jdbc/sigdcpDS</jta-data-source-->
 		
 		<!-- JBoss -->
-		<!--
-		<jta-data-source>java:/sigdcpDS</jta-data-source>
-		-->
+		
+		<!--jta-data-source>java:/sigdcpDS</jta-data-source-->
+		
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		
 		<properties>

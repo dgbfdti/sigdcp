@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="feuilledeplacement" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="792" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" uuid="ae3168e8-a49c-48bb-b255-81443967151f">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="154"/>
-	<property name="ireport.y" value="250"/>
-	<import value="ci.gouv.budget.solde.sigdcp.model.template.etat.EtatHelper"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="194"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -148,7 +147,7 @@
 				<textElement>
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{deplacement}.getDateDepart())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deplacement}.getDateDepart()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="191" y="48" width="100" height="14" uuid="b6dedc74-6714-4808-bf58-33397d62c177"/>
@@ -190,7 +189,7 @@
 				<textElement>
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{dateodreservice})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dateodreservice}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="192" y="82" width="87" height="14" uuid="59a7f4b1-94d1-46bd-a038-2d73d2e8a4fa"/>
@@ -232,7 +231,7 @@
 				<textElement>
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{indice})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{indice}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="191" y="116" width="118" height="14" uuid="e1e85c07-94ea-4406-8eff-bb43301f2eb9"/>
@@ -260,7 +259,7 @@
 				<textElement>
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{dossier}.getPoidsBagageConstate())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dossier}.getPoidsBagageConstate()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="191" y="16" width="22" height="14" uuid="7efb6f7f-c1bb-4907-ac5b-a09ea5780ea3"/>
@@ -373,7 +372,7 @@
 				<textElement>
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{deplacement}.getDateDepart())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deplacement}.getDateDepart()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="22" y="281" width="119" height="14" uuid="6991198d-68b3-401f-93d7-d95cd7974972"/>
@@ -394,7 +393,7 @@
 				<textElement>
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{deplacement}.getDateArrivee())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deplacement}.getDateArrivee()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="154" y="310" width="24" height="13" uuid="90dfa53a-9460-4290-a41e-800a5dbd7730"/>

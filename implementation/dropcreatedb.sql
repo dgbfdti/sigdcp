@@ -1,2 +1,2 @@
-drop schema sigdcp_db;
-create schema sigdcp_db;
+drop schema sigdcp;
+create schema sigdcp;

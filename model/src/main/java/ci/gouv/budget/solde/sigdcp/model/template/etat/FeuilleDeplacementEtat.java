@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -28,15 +30,17 @@ public class FeuilleDeplacementEtat implements Serializable {
 
 	private static final long serialVersionUID = -5973562425199996115L;
 
+	public static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+	
 	private PieceJustificative piece;
 	
-	private String ordreservice;
-	private String dateodreservice;
+	private String ordreservice="";
+	private String dateodreservice="";
 	
-	private String groupe;
+	private String groupe="";
 	
-	private String indice;
-	private String compagnons;
+	private String indice="";
+	private String compagnons="";
 	
 	private InputStream codeBarre;
 	
@@ -62,6 +66,14 @@ public class FeuilleDeplacementEtat implements Serializable {
 		if(piece.getDossier() instanceof DossierMission)
 			return (DossierMission) piece.getDossier();
 		return null;
+	}
+	
+	public static String format(Object object){
+		if(object == null)
+			return "";
+		if(object instanceof Date)
+			return DATE_FORMAT.format((Date)object);
+		return object.toString();
 	}
 	
 	public static Collection<FeuilleDeplacementEtat> test(){

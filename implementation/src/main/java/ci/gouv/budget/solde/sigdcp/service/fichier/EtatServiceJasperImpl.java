@@ -44,6 +44,7 @@ import ci.gouv.budget.solde.sigdcp.model.indemnite.IndemniteCalculee;
 import ci.gouv.budget.solde.sigdcp.model.template.etat.AttestationdePriseenChargeEtat;
 import ci.gouv.budget.solde.sigdcp.model.template.etat.BondeTransportEtat;
 import ci.gouv.budget.solde.sigdcp.model.template.etat.BulletinLiquidationDDEtat;
+import ci.gouv.budget.solde.sigdcp.model.template.etat.EtatHelper;
 import ci.gouv.budget.solde.sigdcp.model.template.etat.FeuilleDeplacementEtat;
 import ci.gouv.budget.solde.sigdcp.model.template.etat.RemboursementEtat;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
@@ -176,10 +177,12 @@ public class EtatServiceJasperImpl implements EtatService {
 		InputStream inputStream = Report.class.getResourceAsStream("bondetransportdd.jrxml");
 		List<BondeTransportEtat> dataSource = new LinkedList<>();
 		PieceJustificative padmin = pieceJustificativeDao.readAdministrativeByDossier(pieceJustificative.getDossier());
-		BondeTransportEtat bt = new BondeTransportEtat(pieceJustificative, "Original", null,padmin.getModel().getTypePieceJustificative().getLibelle(), padmin.getNumero(), padmin.getDateEtablissement()+"", 
-				"Ministère", "Transporteur", "SDDCP", "RECPSERVICE", 
-				new Date()+"", new Date()+"", new Date()+"", "Lieu Signature", "Budget général", "", "", "", "", "000410", new Date()+"", "332", "4101", "016289", "Lieu certif", 
-				new Date()+"", "", "Materiel transporte", padmin.getDossier().getMontantIndemnisation()+"",documentService.genererCodeBarre(pieceJustificative));
+		BondeTransportEtat bt = new BondeTransportEtat(pieceJustificative, "Original", null,EtatHelper.format(padmin.getModel().getTypePieceJustificative().getLibelle())
+				, padmin.getNumero(), EtatHelper.format(padmin.getDateEtablissement()), "Ministère", "Transporteur", "SDDCP", "RECPSERVICE", 
+				EtatHelper.format(new Date()), EtatHelper.format(new Date()), EtatHelper.format(new Date()), "Lieu Signature", "Budget général", "", "", "", "", "000410"
+				, EtatHelper.format(new Date()), "332", "4101", "016289", "Lieu certif", 
+				EtatHelper.format(new Date()), "", "Materiel transporte", EtatHelper.format(padmin.getDossier().getMontantIndemnisation())
+				,documentService.genererCodeBarre(pieceJustificative));
 		dataSource.add(bonTransportEtat(bt, "BON TRANSPORT", "ORIGINAL"));
 		return build(BondeTransportEtat.class, inputStream, dataSource);
 	}
@@ -203,8 +206,9 @@ public class EtatServiceJasperImpl implements EtatService {
 			accompaganteur.append(accompaganteur.length()==0?"":" et "+ (nbe+" enfant"+(nbe>1?"s":"")));
 		}
 		
-		dataSource.add(new FeuilleDeplacementEtat(pieceJustificative, "Décision", decision.getDateEtablissement()+"", groupeDD.getLibelle(), pieceJustificative.getDossier().getBeneficiaire().getIndice()+"",
-				accompaganteur.toString(),documentService.genererCodeBarre(pieceJustificative)));
+		dataSource.add(new FeuilleDeplacementEtat(pieceJustificative, "Décision", EtatHelper.format(decision.getDateEtablissement()), groupeDD.getLibelle()
+				, pieceJustificative.getDossier().getBeneficiaire().getIndice() == null ? "" : pieceJustificative.getDossier().getBeneficiaire().getIndice().toString()
+				, accompaganteur.toString(),documentService.genererCodeBarre(pieceJustificative)));
 		return build(FeuilleDeplacementEtat.class, inputStream, dataSource);
 	}
 	

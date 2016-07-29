@@ -260,15 +260,13 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 				if(agentEtatReferenceService.findById(agentEtatSaisi.getMatricule()) == null)
 					serviceException("Matricule inconnu !");
 				else{
-					//agentEtatDao.create(agentEtatSaisi);
+					if(agentEtatSaisi.getId()==null)
+						agentEtatDao.create(agentEtatSaisi);
 					dossier.setBeneficiaire(agentEtatSaisi);
-				
 				}
 			}
 		}
 
-		
-		
 		if(operation==null){//mise a jour
 			deplacementDao.update(dossier.getDeplacement());
 			//debug(dossier);

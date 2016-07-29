@@ -2,8 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bondetransport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e7d662a-4f1e-4985-b8df-e22a5266b8d6">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<import value="ci.gouv.budget.solde.sigdcp.model.template.etat.EtatHelper"/>
+	<property name="ireport.y" value="331"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -129,7 +128,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{ordreservice})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ordreservice}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="150" y="154" width="18" height="13" uuid="d22af5d2-e2c5-474a-81a4-4b52541074f3"/>
@@ -140,7 +139,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{numeroordreservice})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{numeroordreservice}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="167" width="18" height="13" uuid="0c8d0bfa-cf4b-4868-bdf9-8484e469531e"/>
@@ -177,7 +176,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{deplacement}.getDateDepart())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deplacement}.getDateDepart()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="217" width="14" height="15" uuid="32c420e1-1c81-47ca-9cd7-6436285b0afb"/>
@@ -188,7 +187,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{beneficiaire})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{beneficiaire}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="1" y="253" width="41" height="14" uuid="166eb72b-791e-4016-b8b6-35ecdceb728f"/>
@@ -199,7 +198,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{beneficiaire}.getType())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{beneficiaire}.getType()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="1" y="271" width="46" height="14" uuid="5e6146e0-5aed-43b7-ad2f-50faeca9ac89"/>
@@ -210,7 +209,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{dossier}.getGrade())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dossier}.getGrade()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="1" y="289" width="43" height="14" uuid="c63d2ba3-1c6f-4d6c-993a-25a0394136a7"/>
@@ -221,7 +220,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{deplacement}.getNature())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deplacement}.getNature()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="306" width="135" height="14" uuid="7a4d5908-7fd6-4b63-9701-a65d623d73b3"/>
@@ -232,7 +231,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{dossier}.getPoidsBagageConstate())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dossier}.getPoidsBagageConstate()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="1" y="341" width="52" height="15" uuid="43ea52df-7513-4fc8-ad4d-f88adefb4be0"/>
@@ -243,7 +242,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{deplacement}.getLocaliteDepart())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deplacement}.getLocaliteDepart()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="223" y="341" width="12" height="15" uuid="224d8020-519f-45a3-894a-4df44b8094b3"/>
@@ -254,7 +253,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{deplacement}.getLocaliteArrivee())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deplacement}.getLocaliteArrivee()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="115" y="397" width="210" height="16" uuid="b315f6cf-72e1-476d-935f-745b63c0411a"/>
@@ -279,7 +278,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{proposantservice})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{proposantservice}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="478" width="15" height="15" uuid="ff6e5a2d-9a47-473a-be0d-c08707bbab7e"/>
@@ -294,7 +293,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{dateremistransporteur})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dateremistransporteur}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="41" y="565" width="100" height="15" uuid="af173eb0-6bd8-49da-b81c-6d022e858ee3"/>
@@ -309,7 +308,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{lieucertification})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{lieucertification}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="39" y="602" width="21" height="15" uuid="c001bb46-326d-472c-9da9-b2a0db45c86e"/>
@@ -320,7 +319,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{dateremistransporteur})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dateremistransporteur}]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement mode="Transparent" x="326" y="393" width="124" height="23" uuid="bcafca34-d86e-4be5-85fc-b85f1b9a79ef"/>
@@ -422,7 +421,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{deplacement}.getLocaliteArrivee())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deplacement}.getLocaliteArrivee()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="310" y="607" width="17" height="15" uuid="c70b286c-426d-4fb4-954f-383aefe847a0"/>
@@ -433,7 +432,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{datecertification})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{datecertification}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="324" width="65" height="13" uuid="64817bd8-4225-427a-9f94-19774bb0994e"/>
@@ -444,14 +443,14 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{piece}.getNumero())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{piece}.getNumero()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="20" y="478" width="100" height="15" uuid="f4542984-79ab-43d5-82cb-8f4fba83256d"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{deplacement}.getLocaliteArrivee())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deplacement}.getLocaliteArrivee()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="153" y="110" width="16" height="17" uuid="6cfeba14-19bc-49c1-8603-4f763b73ed61"/>
@@ -465,7 +464,7 @@
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[EtatHelper.format($F{piece}.getNumero())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{piece}.getNumero()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="3" y="30" width="99" height="13" uuid="fc43f49e-ee82-45e5-92c3-15dfdd8ad8a6"/>

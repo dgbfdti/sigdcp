@@ -180,7 +180,7 @@
 							<h:outputText value="#{participant.beneficiaire.matricule}" />
 					    	
 							<p:outputLabel for="nom#{iid}" value="Nom" />
-						 	<p:inputText id="nom#{iid}" required="#{required}" requiredMessage="#{valueRequiredMessage}" rendered="#{participant.editable}">
+						 	<p:inputText id="nom#{iid}" value="#{participant.beneficiaire.nom}" required="#{required}" requiredMessage="#{valueRequiredMessage}" rendered="#{participant.editable}">
 						 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 						 		<p:message for="@parent" />
 						 	</p:inputText>

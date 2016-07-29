@@ -13,8 +13,8 @@
 		 	<h:outputText value="#{agentEtat.matricule}" rendered="#{solde==null}"/>
 			
 			<p:inputText id="matAgent" required="true"	value="#{agentEtat.matricule}" requiredMessage="#{valueRequiredMessage}" rendered="#{solde!=null}"  
-				valueChangeListener="#{ctrl.matriculeListener}" >
-				<p:ajax event="change" update="panelIdentite"/>
+				valueChangeListener="#{ctrl.matriculeListener}" widgetVar="azerty" style="text-transform: uppercase">
+				<p:ajax event="change" update="panelIdentite" />
 				<p:message for="@parent" />
 			</p:inputText>
 			
