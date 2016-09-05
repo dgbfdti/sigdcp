@@ -239,8 +239,11 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 		//entity.getBeneficiaire().setMatricule((String) valueChangeEvent.getNewValue());
 		if(agentEtat==null){
 			entity.getBeneficiaire().setMatricule(matriculeSaisie);
+			entity.getBeneficiaire().setNom(null);
 		}else
 			entity.setBeneficiaire(agentEtat);
+		entity.getBeneficiaire().setNom(StringUtils.upperCase(entity.getBeneficiaire().getNom()));
+		entity.getBeneficiaire().setPrenoms(StringUtils.upperCase(entity.getBeneficiaire().getPrenoms()));
 		//entity.getBeneficiaire().setDateNaissance(agentEtat.getDateNaissance());
 		//System.out.println("FaireDemandeDDController.matriculeListener()"+entity.getBeneficiaire().getDateNaissance());
 	}

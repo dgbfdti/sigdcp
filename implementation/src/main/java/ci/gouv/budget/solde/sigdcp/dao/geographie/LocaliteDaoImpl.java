@@ -2,6 +2,7 @@ package ci.gouv.budget.solde.sigdcp.dao.geographie;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import ci.gouv.budget.solde.sigdcp.dao.JpaDaoImpl;
 import ci.gouv.budget.solde.sigdcp.dao.geographie.LocaliteDao;
@@ -24,6 +25,11 @@ public class LocaliteDaoImpl extends JpaDaoImpl<Localite, String> implements Loc
 				.setParameter("typeId", typeId)
 				.setParameter("parentLocalite", parent)
 				.getResultList();
+	}
+	
+	@Override
+	public List<Localite> readAll() {
+		return entityManager.createQuery("SELECT record FROM "+clazz.getSimpleName()+" record ORDER BY record.libelle ASC", clazz).getResultList();
 	}
 	
 }

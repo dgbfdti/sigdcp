@@ -45,7 +45,7 @@
 		</p:outputPanel>
 		<p:dataTable id="#{datatable}" value="#{controller.list}" var="record" rowIndexVar="index" rowKey="#{record[controller.recordIdentifierFieldName]}" 
 			selection="#{controller.selection}"
-			rowStyleClass="#{controller.rowStyleClass(record)}"> 
+			rowStyleClass="#{controller.rowStyleClass(record)}" emptyMessage="Aucun enregistrement trouvé"> 
 			
 			<f:facet name="header">
 				<h:outputText value="#{controller.listTitle}" />
