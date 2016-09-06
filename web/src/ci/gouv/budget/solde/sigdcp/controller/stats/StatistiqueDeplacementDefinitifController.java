@@ -39,5 +39,10 @@ public class StatistiqueDeplacementDefinitifController extends AbstractStatistiq
 		
 	}
 	
-	
+	@Override
+	public void detailAction() {
+		System.out
+				.println("StatistiqueDeplacementDefinitifController.detailAction()");
+		super.detailAction();
+	}
 }

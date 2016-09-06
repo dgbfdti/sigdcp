@@ -304,7 +304,7 @@ public class ValidationPolicy {
 	
 	public void validatePieceJustificativeNumero(Boolean soumission,String numero,Date date,Fonction signataire,InfosFichierATelecharger fichier,PieceJustificativeAFournir model) throws Exception{
 		if(soumission || Boolean.TRUE.equals(model.getConfig().getAdministrative()) || Boolean.TRUE.equals(model.getConfig().getPrincipale())){
-			if(isNull(numero))
+			if(isNull(numero) && (Boolean.TRUE.equals(model.getConfig().getAdministrative()) || Boolean.TRUE.equals(model.getConfig().getPrincipale())))
 				exception();
 		}else if(Boolean.TRUE.equals(model.getConfig().getDerivee()))
 			;

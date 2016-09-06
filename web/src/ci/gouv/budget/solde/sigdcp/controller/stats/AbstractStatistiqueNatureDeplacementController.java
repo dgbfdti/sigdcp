@@ -68,8 +68,6 @@ public abstract class AbstractStatistiqueNatureDeplacementController extends Sta
 		
 		if(natureDeplacementSelectionnees==null || natureDeplacementSelectionnees.isEmpty() || natureOperaitonSelectionnee==null || statutSelectionne==null)
 		return ;
-		System.out
-		.println("AbstractStatistiqueNatureDeplacementController.detailAction()"+detailObjets);
 		detailObjets = new ArrayList<>(dossierService. findStatistiqueDetailByNatureDeplacementsByNatureOperationByStatut(natureDeplacementSelectionnees,  natureOperaitonSelectionnee, statutSelectionne));
 		
 		for(Dossier dossier : detailObjets){

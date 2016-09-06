@@ -2,7 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bulletinliquidationdd" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="37ee4553-bd82-44a8-8a7a-28460617a671">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="176"/>
+	<property name="ireport.y" value="0"/>
+    <import value="ci.gouv.budget.solde.sigdcp.model.template.etat.EtatHelper"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -255,7 +256,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{beneficiaire}.getIndice()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[EtatHelper.format($F{beneficiaire}.getIndice())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="75" width="121" height="15" uuid="638cc14f-bf24-42cd-8ec9-c25f81f1ff0e"/>
@@ -266,7 +267,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{beneficiaire}.getSituationMatrimoniale()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[EtatHelper.format($F{beneficiaire}.getSituationMatrimoniale())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="93" width="92" height="15" uuid="6f8c50d2-0927-45ec-80ae-d58aac472997"/>
@@ -354,7 +355,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{decisionAffectation}.getNumero()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[EtatHelper.format($F{decisionAffectation}.getNumero())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="141" y="198" width="13" height="14" uuid="592b1c1c-a6b3-423f-a9aa-41790f80a6d1"/>
@@ -365,7 +366,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{decisionAffectation}.getDateEtablissement()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[EtatHelper.format($F{decisionAffectation}.getDateEtablissement())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="216" width="139" height="13" uuid="3b61623a-f074-46b0-b403-769d70a1720a"/>
@@ -387,7 +388,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{feuilleDeplacement}.getDateEtablissement()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[EtatHelper.format($F{feuilleDeplacement}.getDateEtablissement())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="402" y="10" width="242" height="14" uuid="95b1f358-aab4-4de7-a981-9b814896e442"/>

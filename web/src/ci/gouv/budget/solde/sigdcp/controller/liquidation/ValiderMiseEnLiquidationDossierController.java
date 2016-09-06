@@ -18,6 +18,7 @@ public class ValiderMiseEnLiquidationDossierController extends AbstractValidatio
 		showMontant=true;
 		showBudgetDisponible=false;
 		//showTotalDepense = true;
+		rechercherCommande.setRendered(Boolean.FALSE);
 	}
 	
 	@Override

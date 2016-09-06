@@ -42,7 +42,7 @@ public class DossierServiceImpl extends AbstractDossierServiceImpl<Dossier> impl
 	}
 
 
-	@Override
+	@Override @TransactionAttribute(TransactionAttributeType.NEVER)
 	public Collection<Dossier> findStatistiqueDetailByNatureDeplacementsByNatureOperationByStatut(Collection<NatureDeplacement> natureDeplacements,NatureOperation natureOperation, Statut statut) {
 		Collection<Dossier> dossiers = ((DossierDao)dao).readStatistiqueDetailByNatureDeplacementByNatureOperationByStatut(natureDeplacements,natureOperation, statut);
 		for(Dossier d : dossiers)
@@ -50,7 +50,7 @@ public class DossierServiceImpl extends AbstractDossierServiceImpl<Dossier> impl
 		return dossiers;
 	}
 
-	@Override
+	@Override @TransactionAttribute(TransactionAttributeType.NEVER)
 	public Collection<Dossier> findStatiqueDetailBySection(Collection<Section> sections) {
 		Collection<Dossier> dossiers = ((DossierDao)dao).readStatiqueDetailBySection(sections);
 		for(Dossier d : dossiers)
