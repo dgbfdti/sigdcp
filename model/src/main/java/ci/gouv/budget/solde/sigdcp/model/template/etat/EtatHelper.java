@@ -1,6 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.model.template.etat;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,8 +22,11 @@ public class EtatHelper implements Serializable {
 			return "";
 		if(object instanceof Date)
 			return DATE_FORMAT.format((Date)object);
+		if(object instanceof BigDecimal)
+			return ((BigDecimal)object).intValue()+"";
 		if(object instanceof AgentEtat)
 			return ((AgentEtat)object).getNomPrenoms();
+		
 		return object.toString();
 	}
 

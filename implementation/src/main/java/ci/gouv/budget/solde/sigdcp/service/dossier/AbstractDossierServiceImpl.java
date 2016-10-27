@@ -90,6 +90,14 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	 
 	/**/
 	
+	/*@Override
+	public void delete(DOSSIER dossier) {
+		for(PieceJustificative pieceJustificative : pieceJustificativeDao.readByDossier(dossier))
+			pieceJustificativeDao.delete(pieceJustificative);
+		for(PieceProduite pieceProduite : pieceProduiteDao.readByDossier(dossier))
+			pieceJustificativeDao.delete(pieceJustificative);
+	}*/
+	
 	@TransactionAttribute(TransactionAttributeType.NEVER)
 	@Override
 	public Collection<DOSSIER> findATraiter(Collection<NatureDeplacement> natureDeplacements,String natureOperationId) {

@@ -1,6 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.service.fichier;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,6 +27,8 @@ import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierTransitDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.GroupeDDDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeDao;
+import ci.gouv.budget.solde.sigdcp.dao.geographie.DistanceEntreLocaliteDao;
+import ci.gouv.budget.solde.sigdcp.dao.indemnite.IndemniteTrancheDistanceDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.BordereauTransmission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.BulletinLiquidation;
@@ -37,10 +40,12 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
+import ci.gouv.budget.solde.sigdcp.model.geographie.DistanceEntreLocalite;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeDD;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.IndemniteCalculee;
+import ci.gouv.budget.solde.sigdcp.model.indemnite.IndemniteTrancheDistance;
 import ci.gouv.budget.solde.sigdcp.model.template.etat.AttestationdePriseenChargeEtat;
 import ci.gouv.budget.solde.sigdcp.model.template.etat.BondeTransportEtat;
 import ci.gouv.budget.solde.sigdcp.model.template.etat.BulletinLiquidationDDEtat;
@@ -48,11 +53,13 @@ import ci.gouv.budget.solde.sigdcp.model.template.etat.EtatHelper;
 import ci.gouv.budget.solde.sigdcp.model.template.etat.FeuilleDeplacementEtat;
 import ci.gouv.budget.solde.sigdcp.model.template.etat.RemboursementEtat;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
+import ci.gouv.budget.solde.sigdcp.service.ServiceExceptionNoRollBack;
 import ci.gouv.budget.solde.sigdcp.service.dossier.BordereauTransmissionService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DocumentService;
 import ci.gouv.budget.solde.sigdcp.service.indemnite.GroupeMissionService;
 import ci.gouv.budget.solde.sigdcp.service.indemnite.IndemniteOperandeService;
 import ci.gouv.budget.solde.sigdcp.service.resources.report.Report;
+import ci.gouv.budget.solde.sigdcp.service.utils.FrenchNumberToWords;
 
 @Stateless
 public class EtatServiceJasperImpl implements EtatService {
@@ -66,6 +73,8 @@ public class EtatServiceJasperImpl implements EtatService {
 	@Inject private GroupeDDDao groupeDDDao;
 	@Inject private GroupeMissionService groupeMissionService;
 	@Inject private DocumentService documentService;
+	@Inject private IndemniteTrancheDistanceDao indemniteTrancheDistanceDao;
+	@Inject private DistanceEntreLocaliteDao distanceEntreLocaliteDao;
 	
 	@Override @TransactionAttribute(TransactionAttributeType.NEVER)
 	public <T> byte[] build(Class<T> aClass,InputStream templateInputStream,Collection<T> dataSource) {
@@ -206,9 +215,29 @@ public class EtatServiceJasperImpl implements EtatService {
 			accompaganteur.append(accompaganteur.length()==0?"":" et "+ (nbe+" enfant"+(nbe>1?"s":"")));
 		}
 		
+		DistanceEntreLocalite distanceEntreLocalite =  distanceEntreLocaliteDao.readByLocalite1ByLocalite2(pieceJustificative.getDossier().getDeplacement().getLocaliteDepart(), 
+				pieceJustificative.getDossier().getDeplacement().getLocaliteArrivee());
+		
+		if(distanceEntreLocalite == null) throw new ServiceExceptionNoRollBack("La distance entre "+pieceJustificative.getDossier().getDeplacement().getLocaliteDepart()+" et "
+				+pieceJustificative.getDossier().getDeplacement().getLocaliteArrivee()+" est introuvable");
+		
+		IndemniteTrancheDistance indemniteTrancheDistance = indemniteTrancheDistanceDao.readByValeurByCategorieDeplacement(pieceJustificative.getDossier().getDeplacement().getNature().getCategorie()
+				, distanceEntreLocalite.getDistanceKm());
+		
+		if(indemniteTrancheDistance == null) throw new ServiceExceptionNoRollBack("L'indemnité kilométrique de la catégorie "+pieceJustificative.getDossier().getDeplacement().getNature().getCategorie()
+				+" et la distance "+distanceEntreLocalite.getDistanceKm()+" est introuvable");
+		
+		BigDecimal fvt=indemniteTrancheDistance.getMontant()
+				,ija=groupeDD.getMontantAgent()
+				,ijep=marie ? groupeDD.getMontantEpouse() : BigDecimal.ZERO
+				,ijen = groupeDD.getMontantEnfant().multiply(new BigDecimal(nbe))
+				,totChif=fvt.add(ija).add(ijep).add(ijen)
+				,aPayer=totChif;
+		String totLettre = FrenchNumberToWords.convert(aPayer.longValue());
 		dataSource.add(new FeuilleDeplacementEtat(pieceJustificative, "Décision", EtatHelper.format(decision.getDateEtablissement()), groupeDD.getLibelle()
 				, pieceJustificative.getDossier().getBeneficiaire().getIndice() == null ? "" : pieceJustificative.getDossier().getBeneficiaire().getIndice().toString()
-				, accompaganteur.toString(),documentService.genererCodeBarre(pieceJustificative)));
+				, accompaganteur.toString(),EtatHelper.format(fvt),EtatHelper.format(ija),EtatHelper.format(ijep)
+				, EtatHelper.format(ijen),EtatHelper.format(totChif),EtatHelper.format(aPayer),totLettre,"Abidjan",EtatHelper.format(new Date()),documentService.genererCodeBarre(pieceJustificative)));
 		return build(FeuilleDeplacementEtat.class, inputStream, dataSource);
 	}
 	
@@ -220,7 +249,7 @@ public class EtatServiceJasperImpl implements EtatService {
 		
 		StringBuilder accompaganteur = new StringBuilder();		
 		dataSource.add(new FeuilleDeplacementEtat(pieceJustificative, "???", "???", groupe.getLibelle(), 
-				pieceJustificative.getDossier().getBeneficiaire().getIndice()+"",accompaganteur.toString(),null));
+				pieceJustificative.getDossier().getBeneficiaire().getIndice()+"",accompaganteur.toString(),"","","","","","","","","",null));
 		return build(FeuilleDeplacementEtat.class, inputStream, dataSource);
 	}
 	

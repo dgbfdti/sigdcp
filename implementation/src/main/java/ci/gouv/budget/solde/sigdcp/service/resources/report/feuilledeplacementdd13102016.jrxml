@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="feuilledeplacement" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="792" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" uuid="ae3168e8-a49c-48bb-b255-81443967151f">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="81"/>
+	<property name="ireport.x" value="154"/>
+	<property name="ireport.y" value="250"/>
 	<import value="ci.gouv.budget.solde.sigdcp.model.template.etat.EtatHelper"/>
 	<style name="table">
 		<box>
@@ -63,33 +63,6 @@
 	</field>
 	<field name="codeBarre" class="java.io.InputStream">
 		<fieldDescription><![CDATA[codeBarre]]></fieldDescription>
-	</field>
-	<field name="indemniteDistance" class="java.lang.String">
-		<fieldDescription><![CDATA[indemniteDistance]]></fieldDescription>
-	</field>
-	<field name="indemniteJourAgent" class="java.lang.String">
-		<fieldDescription><![CDATA[indemniteJourAgent]]></fieldDescription>
-	</field>
-	<field name="indemniteJourEnfant" class="java.lang.String">
-		<fieldDescription><![CDATA[indemniteJourEnfant]]></fieldDescription>
-	</field>
-	<field name="indemniteJourEpouse" class="java.lang.String">
-		<fieldDescription><![CDATA[indemniteJourEpouse]]></fieldDescription>
-	</field>
-	<field name="lieuGeneration" class="java.lang.String">
-		<fieldDescription><![CDATA[lieuGeneration]]></fieldDescription>
-	</field>
-	<field name="montantAPayerChiffre" class="java.lang.String">
-		<fieldDescription><![CDATA[montantAPayerChiffre]]></fieldDescription>
-	</field>
-	<field name="montantAPayerLettre" class="java.lang.String">
-		<fieldDescription><![CDATA[montantAPayerLettre]]></fieldDescription>
-	</field>
-	<field name="total" class="java.lang.String">
-		<fieldDescription><![CDATA[total]]></fieldDescription>
-	</field>
-	<field name="dateGeneration" class="java.lang.String">
-		<fieldDescription><![CDATA[dateGeneration]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -431,12 +404,94 @@
 				<text><![CDATA[le]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="379" y="470" width="16" height="20" uuid="523c3788-70e1-4c3a-aebf-119b0a42aa40"/>
-				<text><![CDATA[A]]></text>
+				<reportElement x="500" y="224" width="160" height="20" uuid="af58b726-3a4e-44a4-a413-64d26164107a"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REGLEMENT DEFINITIF]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="538" y="246" width="254" height="101" uuid="c3df9af9-ede5-414c-bf87-0f410e40a11b"/>
+			</rectangle>
+			<line>
+				<reportElement x="538" y="271" width="254" height="1" uuid="56c44b3f-05c3-4be9-a5c7-27395c3e6e39"/>
+			</line>
+			<line>
+				<reportElement x="538" y="297" width="254" height="1" uuid="811dd06b-f5e4-4040-bee7-241885f6f083"/>
+			</line>
+			<line>
+				<reportElement x="538" y="323" width="254" height="1" uuid="cb592b2d-714d-4b4f-a80e-abc7e13c8f39"/>
+			</line>
+			<rectangle>
+				<reportElement x="707" y="347" width="85" height="31" uuid="cd3394e9-a390-419b-8d75-35984bdff0eb"/>
+			</rectangle>
+			<line>
+				<reportElement x="707" y="247" width="1" height="99" uuid="78880455-8a27-4685-b64a-f33564ad13e2"/>
+			</line>
+			<line>
+				<reportElement x="620" y="246" width="1" height="101" uuid="e972aac2-a887-4a82-943c-81889c3fa3ec"/>
+			</line>
+			<rectangle>
+				<reportElement x="707" y="378" width="85" height="33" uuid="33448bb1-1a20-4bf0-ab96-c0d8b13f896c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="707" y="408" width="85" height="29" uuid="74635ef7-e38e-40b2-beb9-d022548bbf16"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="555" y="251" width="43" height="20" uuid="364c5682-8a08-4ebb-9b06-cfa0ddc53ff7"/>
+				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="518" y="470" width="16" height="20" uuid="8a029279-9c94-42d0-b65b-c87bd767ab13"/>
-				<text><![CDATA[le]]></text>
+				<reportElement x="643" y="251" width="49" height="20" uuid="90e21fda-7359-43ed-bbbc-5dd3629724dc"/>
+				<text><![CDATA[Taux]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="725" y="251" width="53" height="20" uuid="fb9b6d73-b49c-4475-a7ce-7f53e52621df"/>
+				<text><![CDATA[Décompte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="282" width="188" height="21" uuid="a595adbd-75e4-4c01-b38d-713f9882bf87"/>
+				<text><![CDATA[Indemnité journalière normale ...............]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="303" width="83" height="20" uuid="37b4a7de-837e-49ee-a6c1-a2cf8f042ca5"/>
+				<text><![CDATA[réduite .................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="329" width="83" height="20" uuid="87fe29d0-7fdb-4fba-b664-e0d750c6f704"/>
+				<text><![CDATA[partielle ................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="358" width="255" height="20" uuid="288460c4-bda8-4fff-a55a-a8a759f1899b"/>
+				<text><![CDATA[Total ............................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="391" width="255" height="20" uuid="592c2beb-d6f0-4368-8156-f247f4a71488"/>
+				<text><![CDATA[Montant des avances ou acomptes .............................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="419" width="255" height="20" uuid="7d6358a2-c70e-4563-ba8f-f97de7e6e606"/>
+				<text><![CDATA[Reste à payer ...............................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="450" width="428" height="20" uuid="7d8d0f00-cbe5-4e62-a0c0-10c90db4750f"/>
+				<text><![CDATA[Arrêté décompte à la somme de : .........................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="470" width="176" height="20" uuid="523c3788-70e1-4c3a-aebf-119b0a42aa40"/>
+				<text><![CDATA[A ............................................,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="518" y="470" width="168" height="20" uuid="8a029279-9c94-42d0-b65b-c87bd767ab13"/>
+				<text><![CDATA[le .................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="677" y="470" width="86" height="20" uuid="260f3ebf-4fad-42c9-bc43-6b4ce5836f98"/>
+				<text><![CDATA[20.....................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="489" width="399" height="15" uuid="beb163b6-aa7c-4c60-907b-79275b74814c"/>
+				<text><![CDATA[Le ................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="12" uuid="e432444e-6122-40b4-afb1-78f50876a689"/>
@@ -505,70 +560,6 @@
 				<reportElement x="7" y="358" width="207" height="146" uuid="e692d34e-fcb4-49ac-b1fd-e1514f9fd6cb"/>
 				<imageExpression><![CDATA[$F{codeBarre}]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement x="380" y="227" width="153" height="20" uuid="f39272bc-6310-40da-9dd7-f4d827a00f15"/>
-				<text><![CDATA[Frais de voyage et de transport]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="380" y="258" width="153" height="20" uuid="df08ff08-3af8-466c-8ac0-7842ef94608d"/>
-				<text><![CDATA[Indemnité journalière agent]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="380" y="289" width="153" height="20" uuid="7d26b31f-33da-4fc1-8d56-252d263561b2"/>
-				<text><![CDATA[Indemnité journalière épouse]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="380" y="320" width="153" height="20" uuid="436a5518-ee71-47f3-9a81-36cd2aaf776a"/>
-				<text><![CDATA[Indemnité journalière enfant]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="380" y="351" width="153" height="20" uuid="ea8bfb4c-c7b7-4640-af5b-b8fdb93fc01c"/>
-				<text><![CDATA[Total]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="380" y="382" width="153" height="20" uuid="c722793c-95dc-471e-8e3e-336f21ec3ec9"/>
-				<text><![CDATA[Montant à payer]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="379" y="416" width="153" height="42" uuid="e14b5cc8-9b79-4a49-9d8c-5423c15c4167"/>
-				<text><![CDATA[Arrêté la somme de]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="534" y="228" width="258" height="20" uuid="310bb6b1-6ea5-41b2-8457-d282fb0e6299"/>
-				<textFieldExpression><![CDATA[$F{indemniteDistance}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="534" y="261" width="258" height="20" uuid="c8a3abef-6d8a-417e-8ca1-711bc70e8154"/>
-				<textFieldExpression><![CDATA[$F{indemniteJourAgent}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="532" y="290" width="260" height="20" uuid="6b8fe544-524d-415a-a65c-333a878d5441"/>
-				<textFieldExpression><![CDATA[$F{indemniteJourEpouse}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="534" y="320" width="258" height="20" uuid="73fa8fd8-7b23-4ee1-a21e-93e4a54d0e44"/>
-				<textFieldExpression><![CDATA[$F{indemniteJourEnfant}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="534" y="351" width="258" height="20" uuid="7f0703fc-13c8-4c19-af1e-dad113f09d21"/>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="534" y="382" width="258" height="20" uuid="d939ee88-0131-4c40-86e6-4097b9704ce0"/>
-				<textFieldExpression><![CDATA[$F{montantAPayerChiffre}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="534" y="416" width="258" height="42" uuid="6f288951-a742-4ca0-84e5-f9df24d78065"/>
-				<textFieldExpression><![CDATA[$F{montantAPayerLettre}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="391" y="470" width="121" height="20" uuid="3e157b9b-1b71-41d2-b2fb-304eaf10ea9c"/>
-				<textFieldExpression><![CDATA[$F{lieuGeneration}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="534" y="470" width="143" height="20" uuid="4e7d6210-b236-4d46-89af-78fda0020325"/>
-				<textFieldExpression><![CDATA[$F{dateGeneration}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 </jasperReport>

@@ -42,6 +42,9 @@ public class FeuilleDeplacementEtat implements Serializable {
 	private String indice="";
 	private String compagnons="";
 	
+	private String indemniteDistance="",indemniteJourAgent="",indemniteJourEpouse="",indemniteJourEnfant="",total="",montantAPayerChiffre=""
+			,montantAPayerLettre="",lieuGeneration="",dateGeneration="";
+	
 	private InputStream codeBarre;
 	
 	public AgentEtat getBeneficiaire(){
@@ -91,7 +94,9 @@ public class FeuilleDeplacementEtat implements Serializable {
 		DossierDD dossier = new DossierDD(null, null, deplacement, new Grade(null, null, "A1"), agentEtat, 500, null, null, null, null, null);
 		PieceJustificative piece = new PieceJustificative(dossier, "123", null, new Date());
 		try {
-			return new FeuilleDeplacementEtat(piece, "Décision", new Date().toString(), "Groupe 1", "795", "Femme et deux(02) enfants",new FileInputStream("C:/Developpement/qrcode/qrcode-01.png"));
+			return new FeuilleDeplacementEtat(piece, "Décision", new Date().toString(), "Groupe 1", "795", "Femme et deux(02) enfants"
+					,"","","","","","","","",""
+					,new FileInputStream("C:/Developpement/qrcode/qrcode-01.png"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;

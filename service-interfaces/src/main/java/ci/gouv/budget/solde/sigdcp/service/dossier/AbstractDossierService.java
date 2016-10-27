@@ -22,6 +22,8 @@ public interface AbstractDossierService<DOSSIER extends Dossier> extends Traitab
 	
 	void mettreAJourPiecesJustificatives(Collection<DOSSIER> dossiers);
 	
+	//void delete(DOSSIER dossier);
+	
 	/**
 	 * Lectures
 	 */
