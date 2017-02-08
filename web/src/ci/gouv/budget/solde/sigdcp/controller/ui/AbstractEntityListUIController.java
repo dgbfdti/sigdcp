@@ -121,8 +121,8 @@ public abstract class AbstractEntityListUIController<ENTITY extends AbstractMode
 	        detailsDialogOptions.put("draggable", false);
 	        detailsDialogOptions.put("resizable", false);  
 	        //System.out.println("Dialog count = "+webConstantResources.getDialogCount());
-	        detailsDialogOptions.put("contentWidth", 1400 - webConstantResources.getDialogCount() *38); 
-	        detailsDialogOptions.put("contentHeight", 700 - webConstantResources.getDialogCount() *38); 
+	        detailsDialogOptions.put("contentWidth", 1150 /*- webConstantResources.getDialogCount() *58*/); 
+	        detailsDialogOptions.put("contentHeight", 550 /*- webConstantResources.getDialogCount() *58*/); 
 		}else{
 			
 		}

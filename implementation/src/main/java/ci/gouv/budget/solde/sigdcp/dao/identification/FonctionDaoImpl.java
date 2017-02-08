@@ -14,7 +14,7 @@ public class FonctionDaoImpl extends JpaDaoImpl<Fonction, String> implements Fon
 	public Collection<Fonction> readInGroupeMissions() {
 		return entityManager.createQuery("SELECT fonction FROM Fonction fonction WHERE EXISTS ("
 				+ " SELECT groupe FROM GroupeMission groupe WHERE fonction MEMBER OF groupe.fonctions"
-				+ ")", clazz)
+				+ ") ORDER BY fonction.libelle", clazz)
 				.getResultList();
 	}
 	

@@ -20,6 +20,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.DossierObseques;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeDD;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
+import ci.gouv.budget.solde.sigdcp.model.indemnite.IndemniteTrancheDistance;
 
 public class IndemniteOperandeServiceImpl implements IndemniteOperandeService , Serializable {
 
@@ -41,7 +42,14 @@ public class IndemniteOperandeServiceImpl implements IndemniteOperandeService , 
 
 	@Override
 	public int montantDistance(Dossier dossier,int distance) {
-		return indemniteTrancheDistanceDao.readByValeurByCategorieDeplacement(dossier.getDeplacement().getNature().getCategorie() , new BigDecimal(distance)).getMontant().intValue();
+		IndemniteTrancheDistance indemniteTrancheDistance = indemniteTrancheDistanceDao.readByValeurByCategorieDeplacement(dossier.getDeplacement().getNature().getCategorie() , new BigDecimal(distance));
+		Integer montant;
+		if(indemniteTrancheDistance==null){
+			montant = null;
+		}else{
+			montant = indemniteTrancheDistance.getMontant().intValue();
+		}
+		return montant;
 	}
 	
 	@Override

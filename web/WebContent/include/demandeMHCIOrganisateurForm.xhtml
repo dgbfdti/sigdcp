@@ -39,7 +39,7 @@
 			-->
 			<p:panelGrid columns="2" styleClass="panelGridNoBorder" columnClasses="c1,designation" style="width:100%;">
 				
-				<p:outputLabel  for="designation" value="Désignation" />
+				<p:outputLabel  for="designation" value="Objet de la mission" />
 				<p:inputText id="designation" value="#{organiserMissionController.entity.designation}" required="#{required}" rendered="#{editable}" cols="50" rows="5" size="100" styleClass="designation">
 					<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 					<p:message for="@parent" />
@@ -49,7 +49,7 @@
 			
 			<p:panelGrid columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2">								
 
-				<p:outputLabel for="dateDepart" value="Date de début" />
+				<p:outputLabel for="dateDepart" value="Date de départ" />
 				<p:calendar id="dateDepart" value="#{organiserMissionController.entity.deplacement.dateDepart}" required="#{required}" pattern="#{constantResources.datePattern}" 
 					 rendered="#{editable}" binding="#{dateDepart}">
 					<f:validateBean validationGroups="#{clientValidationGroupClass}" />
@@ -58,7 +58,7 @@
 				</p:calendar>
 				<h:outputText value="#{organiserMissionController.entity.deplacement.dateDepart}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 				
-				<p:outputLabel for="dateArrivee" value="Date de fin" />
+				<p:outputLabel for="dateArrivee" value="Date de retour" />
 				<p:calendar id="dateArrivee" value="#{organiserMissionController.entity.deplacement.dateArrivee}" required="#{required}" pattern="#{constantResources.datePattern}" 
 					 rendered="#{editable}" validator="#{validationManager.validateDateArrivee}">
 					<f:validateBean validationGroups="#{clientValidationGroupClass}" />
@@ -111,7 +111,7 @@
 					<p:message for="typedep" />
 					<p:selectOneRadio id="typedep" value="#{organiserMissionController.entity.typeDepense}" converter="#{objectConverter}"
 						valueChangeListener="#{organiserMissionController.typeDepenseListener}" binding="#{typeDepense}">
-						<f:selectItems value="#{typeDepenes}"/> 
+						<f:selectItems value="#{organiserMissionController.typeDepenses}"/> 
 						<p:ajax event="click" update="pfs" process="typedep"/>
 					</p:selectOneRadio>
 			    </h:panelGroup> 
@@ -213,21 +213,21 @@
 		
 							<p:panelGrid columns="2" styleClass="panelGridNoBorder">
 								<p:outputLabel for="indemniteSejour" value="Séjour" />
-								<pe:inputNumber id="indemniteSejour" value="#{participant.dossierMission.frais.indemnite}" required="#{required}" rendered="#{editable}" autocomplete="off">  
+								<pe:inputNumber id="indemniteSejour" value="#{participant.dossierMission.frais.indemnite}" required="#{required}" rendered="#{editable}" autocomplete="off" decimalPlaces="0">  
 									<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 									<p:message for="@parent"/>
 								</pe:inputNumber>
 								<h:outputText value="#{participant.dossierMission.frais.indemnite}" rendered="#{not editable}"/>
 								
 								<p:outputLabel for="indemniteTransport" value="Transport" />
-								<pe:inputNumber id="indemniteTransport" value="#{participant.dossierMission.frais.transport}" required="#{required}" rendered="#{editable}" autocomplete="off">  
+								<pe:inputNumber id="indemniteTransport" value="#{participant.dossierMission.frais.transport}" required="#{required}" rendered="#{editable}" autocomplete="off" decimalPlaces="0">  
 									<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 									<p:message for="@parent"/>
 								</pe:inputNumber>
 								<h:outputText value="#{participant.dossierMission.frais.transport}" rendered="#{not editable}"/>
 								
 								<p:outputLabel for="indemniteDivers" value="Divers" />
-								<pe:inputNumber id="indemniteDivers" value="#{participant.dossierMission.frais.divers}" required="#{required}" rendered="#{editable}" autocomplete="off">  
+								<pe:inputNumber id="indemniteDivers" value="#{participant.dossierMission.frais.divers}" required="#{required}" rendered="#{editable}" autocomplete="off" decimalPlaces="0">  
 									<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 									<p:message for="@parent"/>
 								</pe:inputNumber>

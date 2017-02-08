@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import ci.gouv.budget.solde.sigdcp.dao.DataAccessObject;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 
 public class JpaDaoImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIANT>,TYPE_IDENTIFIANT> implements DataAccessObject<TYPE_MODEL,TYPE_IDENTIFIANT> {
 
@@ -47,7 +48,13 @@ public class JpaDaoImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIANT>,TYPE_
 
 	@Override
 	public List<TYPE_MODEL> readAll() {
-		return entityManager.createQuery("SELECT record FROM "+clazz.getSimpleName()+" record", clazz).getResultList();
+		return entityManager.createQuery("SELECT record FROM "+clazz.getSimpleName()+" record "+getOrderByString(), clazz).getResultList();
+	}
+	
+	protected String getOrderByString(){
+		if(DynamicEnumeration.class.isAssignableFrom(getClass()))
+			return "ORDER BY record.libelle ASC";
+		return "";
 	}
 
 	@Override

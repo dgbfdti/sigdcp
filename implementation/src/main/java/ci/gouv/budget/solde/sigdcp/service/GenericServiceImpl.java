@@ -54,5 +54,10 @@ public class GenericServiceImpl implements GenericService , Serializable {
 		return dao.readAllByClass(aClass, critere);
 	}
 
+	@Override
+	public void delete(AbstractModel<Object> entity) {
+		
+	}
+
 }
 

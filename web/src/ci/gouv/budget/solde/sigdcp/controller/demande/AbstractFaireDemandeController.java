@@ -23,6 +23,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.ActionType;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
+import ci.gouv.budget.solde.sigdcp.service.dossier.NatureOperationService;
 import ci.gouv.budget.solde.sigdcp.service.geographie.LocaliteService;
 import ci.gouv.budget.solde.sigdcp.service.identification.AgentEtatService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
@@ -36,6 +37,7 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 	@Inject transient private ServiceUtils serviceUtils;
 	
 	@Inject private AgentEtatService agentEtatService;
+	@Inject private NatureOperationService natureOperationService;
 	
 	@Setter @Getter protected NatureDeplacement natureDeplacement;
 	@Setter @Getter protected LocaliteService localiteService;
@@ -121,11 +123,16 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 			break;
 		case READ:
 			enregistrerCommand.setRendered(false);
-			defaultSubmitCommand.setRendered(Code.NATURE_OPERATION_RETOUR_FD.equals(entity.getTraitable().getNatureOperation().getCode()) || courrierDto.getCourrierEditable());
-			if(Code.NATURE_OPERATION_RETOUR_FD.equals(entity.getTraitable().getNatureOperation().getCode()))
-				defaultSubmitCommand.setValue("Enregistrer");
-			else if(Code.NATURE_OPERATION_DEPOT.equals(entity.getTraitable().getNatureOperation().getCode()))
-				defaultSubmitCommand.setValue(text("bouton.deposer"));
+			if(entity.getTraitable().getNatureOperation()==null){
+				
+			}else{
+				defaultSubmitCommand.setRendered(Code.NATURE_OPERATION_RETOUR_FD.equals(entity.getTraitable().getNatureOperation().getCode()) || courrierDto.getCourrierEditable());
+				if(Code.NATURE_OPERATION_RETOUR_FD.equals(entity.getTraitable().getNatureOperation().getCode()))
+					defaultSubmitCommand.setValue("Enregistrer");
+				else if(Code.NATURE_OPERATION_DEPOT.equals(entity.getTraitable().getNatureOperation().getCode()))
+					defaultSubmitCommand.setValue(text("bouton.deposer"));	
+			}
+			
 			break;
 		case UPDATE:
 			enregistrerCommand.setRendered(true);
@@ -181,6 +188,12 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 		getDossierService().enregistrer(ActionType.ENREGISTRER,entity);
 		
 	}
+	
+	@Override
+	protected void supprimer() throws Exception {
+		super.supprimer();
+		getDossierService().delete(entity);
+	}
 		
 	@Override
 	protected Collection<PieceJustificativeAFournir> onEnregistrerSuccessPieceJustificativeAFournir() {
@@ -206,19 +219,23 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 		
 	@Override
 	protected void onDefaultSubmitAction() throws Exception {
-		switch(entity.getTraitable().getNatureOperation().getCode()){
-		case Code.NATURE_OPERATION_SOUMISSION:
-			entity.setPieceJustificatives( pieceJustificativeUploader.process());
-			getDossierService().enregistrer(ActionType.SOUMETTRE, entity);
-			break;
-		case Code.NATURE_OPERATION_DEPOT:
-			getDossierService().deposer(Arrays.asList(entity));
-			break;
-		case Code.NATURE_OPERATION_ANNULATION_DEMANDE:
+		if(CRUDType.DELETE.equals(crudType)){
+			entity.getTraitable().setNatureOperation(natureOperationService.findById(Code.NATURE_OPERATION_ANNULATION_DEMANDE));
 			getDossierService().annuler(Arrays.asList(entity));
-			break;
-		
-		}		
+		}else
+			switch(entity.getTraitable().getNatureOperation().getCode()){
+			case Code.NATURE_OPERATION_SOUMISSION:
+				entity.setPieceJustificatives( pieceJustificativeUploader.process());
+				getDossierService().enregistrer(ActionType.SOUMETTRE, entity);
+				break;
+			case Code.NATURE_OPERATION_DEPOT:
+				getDossierService().deposer(Arrays.asList(entity));
+				break;
+			case Code.NATURE_OPERATION_ANNULATION_DEMANDE:
+				getDossierService().annuler(Arrays.asList(entity));
+				break;
+			
+			}		
 	}
 	
 	@Override

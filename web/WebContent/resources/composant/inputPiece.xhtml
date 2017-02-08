@@ -105,6 +105,7 @@
 				<f:attribute name="signataire" value="#{signataire}" />	
 				<f:attribute name="model" value="#{dto.piece.model}" />
 				<f:attribute name="soumission" value="#{cc.attrs.uploader.soumission}" />
+				<f:attribute name="annulation" value="#{cc.attrs.uploader.annulation}" />
 				
 				<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 				<p:message for="@parent" />	

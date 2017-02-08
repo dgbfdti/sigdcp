@@ -13,10 +13,12 @@ public class PieceJustificativeValidator extends AbstractValidator<PieceJustific
 	private static final long serialVersionUID = -9154448652669543194L;
 
 	@Setter
-	private boolean soumission;
+	private boolean soumission,annulation;
 	
 	@AssertTrue(message="Le numéro n'est pas valide")
 	public boolean isValidNumero(){
+		if(Boolean.TRUE.equals(annulation))
+			return Boolean.TRUE;
 		try{
 			validationPolicy.validatePieceJustificativeNumero(soumission, object.getNumero(), object.getDateEtablissement(), object.getFonctionSignataire()
 					,null,object.getModel());

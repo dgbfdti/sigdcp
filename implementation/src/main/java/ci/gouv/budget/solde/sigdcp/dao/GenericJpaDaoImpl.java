@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 
 public class GenericJpaDaoImpl implements GenericDao , Serializable {
 
@@ -45,16 +46,22 @@ public class GenericJpaDaoImpl implements GenericDao , Serializable {
 		return readByClass(aClass, String.class, identifier);
 	}
 	
+	protected <TYPE> String getOrderByString(String record,Class<TYPE> aClass){
+		if(DynamicEnumeration.class.isAssignableFrom(aClass))
+			return " ORDER BY "+record+".libelle ASC";
+		return "";
+	}
+	
 	@Override
 	public <TYPE> List<TYPE> readAllByClass(Class<TYPE> aClass) {
-		return (List<TYPE>) entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity", aClass)
+		return (List<TYPE>) entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity "+getOrderByString("entity", aClass), aClass)
 				.getResultList();
 	}
 
 	
 	@Override
 	public <TYPE> List<TYPE> readAllByClass(Class<TYPE> aClass, Integer debut, Integer max) {
-		return (List<TYPE>) entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity", aClass)
+		return (List<TYPE>) entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity "+getOrderByString("entity", aClass), aClass)
 				.setFirstResult(debut).setMaxResults(max)
 				.getResultList();
 	}

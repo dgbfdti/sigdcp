@@ -14,15 +14,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierTransitDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.GroupeDDDao;
@@ -57,9 +48,19 @@ import ci.gouv.budget.solde.sigdcp.service.ServiceExceptionNoRollBack;
 import ci.gouv.budget.solde.sigdcp.service.dossier.BordereauTransmissionService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DocumentService;
 import ci.gouv.budget.solde.sigdcp.service.indemnite.GroupeMissionService;
+import ci.gouv.budget.solde.sigdcp.service.indemnite.IndemniteCalculateurService;
 import ci.gouv.budget.solde.sigdcp.service.indemnite.IndemniteOperandeService;
 import ci.gouv.budget.solde.sigdcp.service.resources.report.Report;
 import ci.gouv.budget.solde.sigdcp.service.utils.FrenchNumberToWords;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 @Stateless
 public class EtatServiceJasperImpl implements EtatService {
@@ -75,6 +76,7 @@ public class EtatServiceJasperImpl implements EtatService {
 	@Inject private DocumentService documentService;
 	@Inject private IndemniteTrancheDistanceDao indemniteTrancheDistanceDao;
 	@Inject private DistanceEntreLocaliteDao distanceEntreLocaliteDao;
+	@Inject private IndemniteCalculateurService indemniteCalculateurService;
 	
 	@Override @TransactionAttribute(TransactionAttributeType.NEVER)
 	public <T> byte[] build(Class<T> aClass,InputStream templateInputStream,Collection<T> dataSource) {
@@ -141,21 +143,31 @@ public class EtatServiceJasperImpl implements EtatService {
 	
 	private byte[] blDD(DossierDD dossier,BulletinLiquidation bulletinLiquidation,String fichierEtat){
 		InputStream inputStream = Report.class.getResourceAsStream(fichierEtat);
+		//System.out.println(ToStringBuilder.reflectionToString(dossier, ToStringStyle.MULTI_LINE_STYLE));
+		if(BigDecimal.ZERO.compareTo(dossier.getMontantIndemnisation()) == -1 && (dossier.getIndemniteCalculees()==null || dossier.getIndemniteCalculees().isEmpty())){
+			indemniteCalculateurService.calculerDossier(dossier);//FIXME this a workaround to compute for incoherent data. compute is done at generer bulletin liquidation
+			//System.out.println(ToStringBuilder.reflectionToString(dossier, ToStringStyle.MULTI_LINE_STYLE));
+		}
 		CategorieDeplacement categorieDeplacement = dossier.getDeplacement().getNature().getCategorie();
+		String idemniteSuffix = "_"+dossier.getDeplacement().getNature().getCode();
+		
+		//if(idemniteKilometriqueCode == null) throw new ServiceExceptionNoRollBack("Le code de l'indemnité kilométrique de la catégorie "+dossier.getDeplacement().getNature().getCategorie()
+		//		+" est introuvable");
+		
 		List<BulletinLiquidationDDEtat> dataSource = new LinkedList<>();
 		dataSource.add(new BulletinLiquidationDDEtat(pieceJustificativeDao.readAdministrativeByDossier(dossier), 
 				pieceJustificativeDao.readByDossierByTypeId(dossier, Code.TYPE_PIECE_FEUILLE_DEPLACEMENT).iterator().next(), 
-				bulletinLiquidation, null, null, indemniteOperandeService.nombreEnfant(dossier),indemniteOperandeService.distance(dossier),dossier.getGroupe().getLibelle(), 
-				2,categorieDeplacement.getNombreJourIndemniteJournaliere(),"FORMULE IKP",indemniteCalculee(dossier, Code.INDEMNITE_KILOMETRIQUE_PERSONNE).getMontant().toString(), 
-				"FORMULE AGENT BAGAGES", indemniteOperandeService.poidsAgent((GroupeDD) dossier.getGroupe())+"", 
-				"FORMULE CONJOINT BAGAGES", indemniteOperandeService.poidsConjoint((GroupeDD) dossier.getGroupe())+"", 
-				"FORMULE ENFANT BAGAGES", indemniteOperandeService.poidsEnfant((GroupeDD) dossier.getGroupe())+"", 
+				bulletinLiquidation, "", "", indemniteOperandeService.nombreEnfant(dossier),indemniteOperandeService.distance(dossier),dossier.getGroupe().getLibelle(), 
+				2,categorieDeplacement.getNombreJourIndemniteJournaliere(),"FORMULE IKP",EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_KILOMETRIQUE_PERSONNE+idemniteSuffix).getMontant()), 
+				"FORMULE AGENT BAGAGES", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_BAGGAGE_AGENT+idemniteSuffix).getMontant()), 
+				"FORMULE CONJOINT BAGAGES", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_BAGGAGE_CONJOINT+idemniteSuffix).getMontant()), 
+				"FORMULE ENFANT BAGAGES", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_BAGGAGE_ENFANT+idemniteSuffix).getMontant()), 
 				
-				"FORMULE AGENT MONTANT", indemniteOperandeService.montantAgent((GroupeDD) dossier.getGroupe())+"", 
-				"FORMULE CONJOINT MONTANT", indemniteOperandeService.montantConjoint((GroupeDD) dossier.getGroupe())+"", 
-				"FORMULE ENFANT MONTANT", indemniteOperandeService.montantEnfant((GroupeDD) dossier.getGroupe())+"", 
+				"FORMULE AGENT MONTANT", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_JOURNALIERE_AGENT+idemniteSuffix).getMontant()), 
+				"FORMULE CONJOINT MONTANT", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_JOURNALIERE_CONJOINT+idemniteSuffix).getMontant()), 
+				"FORMULE ENFANT MONTANT", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_JOURNALIERE_ENFANT+idemniteSuffix).getMontant()), 
 				
-				dossier.getMontantIndemnisation().toString(), "TOTAL EN LETTRE"));
+				EtatHelper.format(dossier.getMontantIndemnisation()), FrenchNumberToWords.convert(dossier.getMontantIndemnisation().longValue())));
 		
 		return build(BulletinLiquidationDDEtat.class, inputStream, dataSource);
 	}

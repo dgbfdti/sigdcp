@@ -18,6 +18,8 @@ public interface AbstractService<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIA
 	 */
 	public TYPE_MODEL findById(TYPE_IDENTIFIANT identifiant);
 	
+	void delete(TYPE_MODEL entity);
+	
 	/**
 	 * Retourne la liste de tous les objets du type @MODEL
 	 * @return

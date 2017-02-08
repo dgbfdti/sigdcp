@@ -16,6 +16,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import ci.gouv.budget.solde.sigdcp.dao.dossier.AbstractDossierDao;
+import ci.gouv.budget.solde.sigdcp.dao.dossier.BulletinLiquidationDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.DeplacementDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
@@ -25,6 +26,7 @@ import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
 import ci.gouv.budget.solde.sigdcp.dao.indemnite.CercueilDao;
 import ci.gouv.budget.solde.sigdcp.dao.traitement.OperationValidationConfigDao;
 import ci.gouv.budget.solde.sigdcp.dao.traitement.TraitementDossierDao;
+import ci.gouv.budget.solde.sigdcp.dao.traitement.TraitementPieceProduiteDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.BulletinLiquidation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.BulletinLiquidation.AspectLiquide;
@@ -43,11 +45,13 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.dossier.ValidationType;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
+import ci.gouv.budget.solde.sigdcp.model.indemnite.IndemniteCalculee;
 import ci.gouv.budget.solde.sigdcp.model.traitement.NatureOperation;
 import ci.gouv.budget.solde.sigdcp.model.traitement.Operation;
 import ci.gouv.budget.solde.sigdcp.model.traitement.OperationValidationConfig;
 import ci.gouv.budget.solde.sigdcp.model.traitement.Statut;
 import ci.gouv.budget.solde.sigdcp.model.traitement.TraitementDossier;
+import ci.gouv.budget.solde.sigdcp.model.traitement.TraitementPieceProduite;
 import ci.gouv.budget.solde.sigdcp.service.ActionType;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 import ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType;
@@ -77,12 +81,14 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@Inject private TraitementDossierDao traitementDossierDao;
 	@Inject protected OperationValidationConfigDao operationValidationConfigDao;
 	@Inject protected BulletinLiquidationService bulletinLiquidationService;
+	@Inject protected BulletinLiquidationDao bulletinLiquidationDao;
 	@Inject private AgentEtatService agentEtatService;
 	@Inject private AgentEtatReferenceService agentEtatReferenceService;
 	@Inject private AgentEtatDao agentEtatDao;
 	@Inject private IndemniteOperandeService indemniteOperandeService;
 	@Inject private CercueilDao cercueilDao;
 	@Inject private IndemniteCalculateurService indemniteCalculateurService;
+	@Inject private TraitementPieceProduiteDao traitementPieceProduiteDao;
 	
 	public AbstractDossierServiceImpl(AbstractDossierDao<DOSSIER> dao) {
 		super(dao); 
@@ -90,13 +96,43 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	 
 	/**/
 	
-	/*@Override
+	@Override
 	public void delete(DOSSIER dossier) {
 		for(PieceJustificative pieceJustificative : pieceJustificativeDao.readByDossier(dossier))
 			pieceJustificativeDao.delete(pieceJustificative);
-		for(PieceProduite pieceProduite : pieceProduiteDao.readByDossier(dossier))
-			pieceJustificativeDao.delete(pieceJustificative);
-	}*/
+		//supprime les traitements du dossier
+		for(TraitementDossier traitementDossier : traitementDossierDao.readByDossier(dossier)){
+			//supprime les pieces produites du dossier
+			if(traitementDossier.getPieceProduite()!=null){
+				//supprime les traitements de la piece produite
+				for(TraitementPieceProduite traitementPieceProduite : traitementPieceProduiteDao.readByPiece(traitementDossier.getPieceProduite())){
+					traitementPieceProduite.setPieceProduite(null);
+					traitementPieceProduiteDao.delete(traitementPieceProduite);
+				}
+				traitementDossier.getPieceProduite().getTraitable().setDernierTraitement(null);
+				//supprime la piece produite
+				if(traitementDossier.getPieceProduite() instanceof BulletinLiquidation){
+					BulletinLiquidation bulletinLiquidation = (BulletinLiquidation) traitementDossier.getPieceProduite();
+					bulletinLiquidation.setDossier(null);
+					//supprime les indemnités calculées du bulletin de liquidation
+					for(IndemniteCalculee indemniteCalculee : bulletinLiquidation.getIndemniteCalculees())
+						entityManager.remove(indemniteCalculee);
+					//supprime le bulletin de liquidation
+					bulletinLiquidationDao.delete(bulletinLiquidation);
+				}else
+					pieceProduiteDao.delete(traitementDossier.getPieceProduite());
+				traitementDossier.setPieceProduite(null);
+			}
+			//supprime le traitement du dossier
+			traitementDossierDao.delete(traitementDossier);
+		}
+		//supprime le deplacement
+		deplacementDao.delete(dossier.getDeplacement());
+		dossier.setDeplacement(null);
+		dossier.getTraitable().setDernierTraitement(null);
+		//supprime le dossier
+		super.delete(dossier);
+	}
 	
 	@TransactionAttribute(TransactionAttributeType.NEVER)
 	@Override

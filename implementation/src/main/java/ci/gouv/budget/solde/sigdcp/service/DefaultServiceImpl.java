@@ -66,6 +66,11 @@ public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIAN
 		return dao.exist(identifiant);
 	}
 	
+	@Override
+	public void delete(TYPE_MODEL entity){
+		dao.delete(entity);
+	}
+	
 	/*------------------------------------------------------------------------------*/
 	
 	protected Personne utilisateur(){

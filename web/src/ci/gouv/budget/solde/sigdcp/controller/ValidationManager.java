@@ -286,6 +286,8 @@ public class ValidationManager implements Serializable {
 	}
 	
 	public void validatePieceJustificativeDateEtablissement(FacesContext facesContext,UIComponent uiComponent,Object value){
+		if(Boolean.TRUE.equals((Boolean)uiComponent.getAttributes().get("annulation")))
+			return;
 		//UploadedFile file = (UploadedFile) attribute(uiComponent, FileUpload.class, "fichier").getValue();
 		InfosFichierATelecharger fichier = null;//new InfosFichierATelecharger(file.getFileName(),file.getSize());
 		String numero = null;//attribute(uiComponent, String.class, "numero")

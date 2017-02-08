@@ -25,7 +25,7 @@ public abstract class AbstractDynamicEnumerationDaoImpl<DYNAMIC_ENUMERATION exte
 	
 	@Override
 	public <TYPE> List<TYPE> readAllByClass(Class<TYPE> aClass) {
-		return (List<TYPE>) entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity", aClass)
+		return (List<TYPE>) entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity ORDER BY entity.libelle ASC", aClass)
 				.getResultList();
 	}
 	

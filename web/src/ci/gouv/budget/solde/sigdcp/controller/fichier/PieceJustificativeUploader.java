@@ -28,7 +28,8 @@ public class PieceJustificativeUploader implements Serializable {
 	@Setter @Getter protected PieceJustificative pieceJustificativeSelectionne;
 	@Getter private List<PieceJustificativeDto> collection = new LinkedList<>();
 	@Getter @Setter private String title = "Pièces justificatives (Toutes obligatoires à la soumission)",allowedFileTypes;
-	@Getter @Setter private Boolean showInputs=Boolean.TRUE,editable=Boolean.TRUE,showColumnCount=true,showColumnName=true,soumission=false,showDescriptions=false;
+	@Getter @Setter private Boolean showInputs=Boolean.TRUE,editable=Boolean.TRUE,showColumnCount=true,showColumnName=true,soumission=false,showDescriptions=false
+			,annulation=false;
 		
 	public PieceJustificativeDto addPieceJustificative(PieceJustificative pieceJustificative,Boolean editable,Boolean imprimable) {
 		PieceJustificativeDto dto = new PieceJustificativeDto(pieceJustificative,editable,imprimable);

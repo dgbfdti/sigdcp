@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -51,6 +53,7 @@ public class OrganiserMissionController extends AbstractDemandeController<Missio
 	@Getter private Collection<Participant> participants = new LinkedList<>();
 	private String matricule;
 	boolean courrierEditable = false;
+	private List<SelectItem> typeDepenses = new ArrayList<>();
 	
 	@Override
 	protected void initDto() {
@@ -60,7 +63,12 @@ public class OrganiserMissionController extends AbstractDemandeController<Missio
 			id = Long.parseLong(Faces.getRequestParameter(webConstantResources.getRequestParamMission()));
 		} catch (NumberFormatException e) {}
 		entity = missionService.findSaisieByNumero(id);
-		
+		for(TypeDepense typeDepense : genericService.findAllByClass(TypeDepense.class)){
+			SelectItem selectItem = new SelectItem(typeDepense, typeDepense.getLibelle());
+			if(Code.TYPE_DEPENSE_REMBOURSEMENT.equals(typeDepense.getCode()))
+				selectItem.setLabel("Régularisation d’indemnité");
+			typeDepenses.add(selectItem);
+		}
 	}
 	
 	@Override
@@ -104,7 +112,10 @@ public class OrganiserMissionController extends AbstractDemandeController<Missio
 		}
 		
 		warnOnClosing(!CRUDType.READ.equals(crudType) && !CRUDType.DELETE.equals(crudType) || courrierEditable);
-		defaultSubmitCommand.setValue(text("bouton.soumettre"));
+		if(Code.NATURE_OPERATION_DEPOT.equals(entity.getNatureOperationCode()))
+			defaultSubmitCommand.setValue(text("bouton.deposer"));
+		else
+			defaultSubmitCommand.setValue(text("bouton.soumettre"));
 		pieceJustificativeUploader.setTitle("Actes administratifs");
 		
 		pieceJustificativeUploader.addPieceJustificative(entity.getCommunication(), isEditable(),false);
