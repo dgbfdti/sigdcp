@@ -6,7 +6,7 @@
 	<persistence-unit name="sigdcppu" transaction-type="JTA">
 		
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		
+		 
 		<!-- Glassfish -->
 		<!--jta-data-source>jdbc/sigdcp_oracle_prod</jta-data-source-->
 		<jta-data-source>jdbc/sigdcp_mysql</jta-data-source>
