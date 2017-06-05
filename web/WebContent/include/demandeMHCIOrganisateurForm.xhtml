@@ -191,19 +191,21 @@
 							<h:outputText value="#{participant.beneficiaire.prenoms}" rendered="#{not participant.editable}"/>
 							
 							<p:outputLabel for="fonction" value="Fonction" />
-							<p:selectOneMenu id="fonction" value="#{participant.dossierMission.fonction}" converter="#{objectConverter}" rendered="#{editable}" binding="#{fonction}">
+							<p:selectOneMenu id="fonction" value="#{participant.dossierMission.fonction}" converter="#{objectConverter}" rendered="#{editable}" 
+								binding="#{fonction}" filter="true" >
 								<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
-								<f:selectItems value="#{fonctionsGroupeMission}" var="fonction" itemLabel="#{fonction.libelle}" />
+								<!--f:selectItems value="#{fonctionsGroupeMission}" var="fonction" itemLabel="#{fonction.libelle}" /-->
+								<f:selectItems value="#{fonctions}" var="fonction" itemLabel="#{fonction.libelle}" />
 								<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 							</p:selectOneMenu>
 							<h:outputText value="#{participant.dossierMission.fonction}" rendered="#{not editable}"/>
 							
 							<p:outputLabel for="profession" value="Profession" />
 							<p:selectOneMenu id="profession" value="#{participant.dossierMission.profession}" converter="#{objectConverter}" rendered="#{editable}" 
-								validator="#{validationManager.validateProfessionMission}">
+								validator="#{validationManager.validateProfessionMission}" filter="true">
 								<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 								<f:selectItems value="#{professions}" var="profession" itemLabel="#{profession.libelle}" />
-								<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+								<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 								<f:attribute name="fonction" value="#{fonction}" />
 							</p:selectOneMenu>
 							<h:outputText value="#{participant.dossierMission.profession}" rendered="#{not editable}"/>

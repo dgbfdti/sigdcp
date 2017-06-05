@@ -47,7 +47,7 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	}
 
 	@Override
-	public CompteUtilisateur authentifier(Credentials credentials) throws ServiceException {
+	public CompteUtilisateur authentifier(Credentials credentials,String scheme,String serverName,Integer serverPort,String context) throws ServiceException {
 		//if(infos.getTimestampDebut()!=null)
 		//	serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_CONNECTE);
 		
@@ -67,14 +67,14 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 		//System.out.println("CompteUtilisateurServiceImpl.authentifier() "+infos.getNombreTentative());
 		if(!compteUtilisateur.getCredentials().equals(credentials)){//le mot de passe ne correspond pas
 			if(compteUtilisateur.getVerrou()==null && infos.getNombreTentative() == MAX_TENTATIVE_AUTH){
-				verouiller(compteUtilisateur,Cause.ACCESS_MULTIPLE);
+				verouiller(compteUtilisateur,Cause.ACCESS_MULTIPLE,scheme,serverName,serverPort,context);
 				serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_INCONNU,Boolean.FALSE);//we do not roll back transaction
 			}else
 				serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_INCONNU);
 		}
 		
 		if(compteUtilisateur.getVerrou()!=null){
-			notifierVerrou(compteUtilisateur);
+			notifierVerrou(compteUtilisateur,scheme,serverName,serverPort,context);
 			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_VEROUILLE);
 		}
 		
@@ -93,24 +93,24 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	}
 	
 	@Override
-	public void verouiller(CompteUtilisateur compteUtilisateur,Cause causeVerrouillage) throws ServiceException {
+	public void verouiller(CompteUtilisateur compteUtilisateur,Cause causeVerrouillage,String scheme,String serverName,Integer serverPort,String context) throws ServiceException {
 		compteUtilisateur.setVerrou(new Verrou(RandomStringUtils.randomAlphanumeric(64), causeVerrouillage, new Date(), RandomStringUtils.randomAlphanumeric(32)));
 		dao.update(compteUtilisateur);
-		notifierVerrou(compteUtilisateur);
+		notifierVerrou(compteUtilisateur,scheme,serverName,serverPort,context);
 	}
 	
-	private void notifierVerrou(CompteUtilisateur compteUtilisateur){
+	private void notifierVerrou(CompteUtilisateur compteUtilisateur,String scheme,String serverName,Integer serverPort,String context){
 		switch(compteUtilisateur.getVerrou().getCause()){
 		case ACCESS_MULTIPLE:
 			notifier(NotificationMessageType.AVIS_COMPTE_UTILISATEUR_VERROUILLE_ACCES_MULTIPLE,
 					new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom(),"codeDeverouillage",compteUtilisateur.getVerrou().getJeton(),
-					"lienDeverouillage",lienDeverouillage(compteUtilisateur),"dateHeureVerouillage",formatDate(new Date()),"adresseIP","000.000.000.000","adresseGeographique","A déterminer"},compteUtilisateur);
+					"lienDeverouillage",lienDeverouillage(compteUtilisateur,scheme,serverName,serverPort,context),"dateHeureVerouillage",formatDate(new Date()),"adresseIP","000.000.000.000","adresseGeographique","A déterminer"},compteUtilisateur);
 			break;
 			
 		case REINITIALISATION_PASSWORD:
 			notifier(NotificationMessageType.AVIS_COMPTE_UTILISATEUR_VERROUILLE_REINITIALISATION_PASSWORD,
 					new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom(),"codeDeverouillage",compteUtilisateur.getVerrou().getJeton(),
-					"lienDeverouillage",lienDeverouillage(compteUtilisateur)},compteUtilisateur);
+					"lienDeverouillage",lienDeverouillage(compteUtilisateur,scheme,serverName,serverPort,context)},compteUtilisateur);
 			break;
 			
 		case DESACTIVATION_COMPTE:
@@ -120,15 +120,16 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 		}
 	}
 	
-	private String lienDeverouillage(CompteUtilisateur compteUtilisateur){
-		ServletRequest request = (ServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+	private String lienDeverouillage(CompteUtilisateur compteUtilisateur,String scheme,String serverName,Integer serverPort,String context){
+		//ServletRequest request = (ServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		String url = scheme+"://"+serverName+(":"+(serverPort==null ? 80 : serverPort))+context+"/public/securite/";
 		switch(compteUtilisateur.getVerrou().getCause()){
 		case ACCESS_MULTIPLE:
-			return navigationHelper.addQueryParameters(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getServletContext().getContextPath()+"/public/deverouillage.jsf",
+			return navigationHelper.addQueryParameters(url+"deverouillage.jsf",
 					new Object[]{constantResources.getWebRequestParamVerrouCode(),compteUtilisateur.getVerrou().getCode(),constantResources.getWebRequestParamVerrouCause(),
 				constantResources.getWebRequestParamVerrouCause(compteUtilisateur.getVerrou().getCause())});
 		case REINITIALISATION_PASSWORD:
-			return navigationHelper.addQueryParameters(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getServletContext().getContextPath()+"/public/reinitialiserpassword.jsf",
+			return navigationHelper.addQueryParameters(url+"reinitialiserpassword.jsf",
 					new Object[]{constantResources.getWebRequestParamVerrouCode(),compteUtilisateur.getVerrou().getCode(),constantResources.getWebRequestParamVerrouCause(),
 				constantResources.getWebRequestParamVerrouCause(compteUtilisateur.getVerrou().getCause())});
 		}
@@ -199,7 +200,7 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	}
 	
 	@Override
-	public void recupererPasswordEtape2(AgentEtat agentEtat,Collection<ReponseSecrete> reponseSecretes) throws ServiceException {
+	public void recupererPasswordEtape2(AgentEtat agentEtat,Collection<ReponseSecrete> reponseSecretes,String scheme,String serverName,Integer serverPort,String context) throws ServiceException {
 		CompteUtilisateur compteUtilisateur = ((CompteUtilisateurDao)dao).readByMatricule(agentEtat.getMatricule());
 		if(compteUtilisateur==null)
 			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_INEXISTANT);
@@ -210,7 +211,7 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 					if(!reponseSecreteCu.getLibelle().equalsIgnoreCase(reponseSecreteSaisie.getLibelle()))
 						serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_REPONSE_INCORRECT);
 		
-		verouiller(compteUtilisateur,Cause.REINITIALISATION_PASSWORD);
+		verouiller(compteUtilisateur,Cause.REINITIALISATION_PASSWORD,scheme,serverName,serverPort,context);
 	}
 	
 	@Override 

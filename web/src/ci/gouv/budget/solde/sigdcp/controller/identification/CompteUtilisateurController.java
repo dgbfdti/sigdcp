@@ -8,6 +8,9 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+
+import org.omnifaces.util.Faces;
 
 import net.sf.jasperreports.engine.type.VerticalAlignEnum;
 import lombok.Getter;
@@ -72,7 +75,8 @@ public class CompteUtilisateurController extends AbstractEntityFormUIController<
 			private static final long serialVersionUID = -8645979884804534081L;
 			@Override
 			protected Object __execute__(Object object) throws Exception {
-				compteUtilisateurService.verouiller(entity, Cause.DESACTIVATION_COMPTE);
+				HttpServletRequest request = Faces.getRequest();
+				compteUtilisateurService.verouiller(entity, Cause.DESACTIVATION_COMPTE,request.getScheme(),request.getServerName(),request.getServerPort(),request.getContextPath());
 				return null;
 			}
 		});

@@ -88,7 +88,8 @@
 				<p:outputLabel for="villeDepart"  value="Ville de départ:" />
 				<h:panelGroup rendered="#{editable}">
 					<p:message for="villeDepart"/>
-					<p:selectOneMenu id="villeDepart" value="#{faireDemandeTransitController.entity.deplacement.localiteDepart}" required="true" converter="#{objectConverter}" rendered="#{editable}">
+					<p:selectOneMenu id="villeDepart" value="#{faireDemandeTransitController.entity.deplacement.localiteDepart}" required="true" 
+						converter="#{objectConverter}" rendered="#{editable}" filter="true">
 						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 						<f:selectItems value="#{portsCoteDIvoire}"/>
 						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
@@ -99,7 +100,8 @@
 				<p:outputLabel for="villeArrivee" value="Ville d'arrivée:" />		
 				<h:panelGroup rendered="#{editable}">
 					<p:message for="villeArrivee"  />
-					<p:selectOneMenu id="villeArrivee" value="#{faireDemandeTransitController.entity.deplacement.localiteArrivee}" required="true" converter="#{objectConverter}" rendered="#{editable}">
+					<p:selectOneMenu id="villeArrivee" value="#{faireDemandeTransitController.entity.deplacement.localiteArrivee}" required="true" 
+						converter="#{objectConverter}" rendered="#{editable}" filter="true">
 						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 						<f:selectItems value="#{villesCoteDIvoire}"/>
 						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />

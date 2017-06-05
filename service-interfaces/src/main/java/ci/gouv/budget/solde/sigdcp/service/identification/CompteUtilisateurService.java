@@ -23,7 +23,7 @@ public interface CompteUtilisateurService extends AbstractService<CompteUtilisat
 	 * @return
 	 * @throws ServiceException
 	 */
-	CompteUtilisateur authentifier(Credentials credentials) throws ServiceException ;
+	CompteUtilisateur authentifier(Credentials credentials,String scheme,String serverName,Integer serverPort,String context) throws ServiceException ;
 	
 	/**
 	 * Deconnecte un compte du système
@@ -32,7 +32,7 @@ public interface CompteUtilisateurService extends AbstractService<CompteUtilisat
 	 */
 	void deconnecter(CompteUtilisateur compteUtilisateur) throws ServiceException ;
 	
-	void verouiller(CompteUtilisateur compteUtilisateur,Cause causeDeverouillage) throws ServiceException ;
+	void verouiller(CompteUtilisateur compteUtilisateur,Cause causeDeverouillage,String scheme,String serverName,Integer serverPort,String context) throws ServiceException ;
 	
 	void deverouiller(Verrou verrou,Credentials credentials) throws ServiceException ;
 	
@@ -54,7 +54,7 @@ public interface CompteUtilisateurService extends AbstractService<CompteUtilisat
 	 * @param reponses
 	 * @throws ServiceException
 	 */
-	void recupererPasswordEtape2(AgentEtat agentEtat, Collection<ReponseSecrete> reponses) throws ServiceException;
+	void recupererPasswordEtape2(AgentEtat agentEtat, Collection<ReponseSecrete> reponses,String scheme,String serverName,Integer serverPort,String context) throws ServiceException;
 	
 	void deverouillable(Verrou verrou) throws ServiceException;
 	

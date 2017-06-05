@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Properties;
 
 import javax.annotation.Resource;
+import javax.mail.Authenticator;
 import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -20,10 +23,45 @@ import ci.gouv.budget.solde.sigdcp.service.utils.communication.MailService;
 public class MailerServiceImpl implements MailService, Serializable {
 
 	private static final long serialVersionUID = -8680313005464068114L;
-		
-	@Resource(lookup = "java:/sigdcpMail")
+	
+	public static String MAIL_USERNAME = "soldesigdcp@gmail.com";
+	public static String MAIL_PASSWORD = "sigdcp1234";
+	
+	public static String MAIL_FROM = MAIL_USERNAME;
+	public static String MAIL_SMTP_AUTH = "true";
+	public static String MAIL_SMTP_STARTTLS_ENABLE = "true";
+	public static String MAIL_SMTP_SSL_ENABLE = "true";
+	public static String MAIL_SMTP_HOST = "74.125.202.108";
+	//public static String MAIL_SMTP_HOST = "smtp.gmail.com";
+	public static String MAIL_SMTP_PORT = "465";
+	
+	//@Resource(lookup = "java:/sigdcpMail")
 	//@Resource(lookup = "mail/sigdcp")
-    private Session session;
+    //private Session session;
+	
+	private Session getSession(Boolean debug) {
+    	Session session = null;
+    	Properties properties = new Properties();
+    	properties.put("mail.from", MAIL_FROM);
+    	properties.put("mail.smtp.auth", MAIL_SMTP_AUTH);
+    	properties.put("mail.smtp.starttls.enable", MAIL_SMTP_STARTTLS_ENABLE);
+    	properties.put("mail.smtp.ssl.enable", MAIL_SMTP_SSL_ENABLE);
+    	properties.put("mail.smtp.host", MAIL_SMTP_HOST);
+    	properties.put("mail.smtp.port", MAIL_SMTP_PORT);
+    	//properties.put("mail.smtp.socks.host", "10.3.4.5");
+    	//properties.put("mail.smtp.socks.port", "3128");
+    	
+    	//System.out.println("Mail session created : "+properties);
+    	session = Session.getInstance(properties,new Authenticator() {
+    		@Override
+    		protected PasswordAuthentication getPasswordAuthentication() {
+    			return new PasswordAuthentication(MAIL_USERNAME, MAIL_PASSWORD);
+    		}
+		});
+    	session.setDebug(debug);
+    	return session;
+		
+    }
 
 	@Override
 	public void send(NotificationMessage message, String receiver) {
@@ -64,19 +102,27 @@ public class MailerServiceImpl implements MailService, Serializable {
 		return addressesParty(receivers.toArray(new Party[]{}));
 	}
 	
-	private void send(NotificationMessage mailMessage,InternetAddress[] receivers) {
-		MimeMessage message = new MimeMessage(session);
-		try {
-			message.setFrom(new InternetAddress(session.getProperty("mail.from")));
-			message.setRecipients(Message.RecipientType.TO, receivers);
-			message.setSubject(mailMessage.getSubject());
-			message.setSentDate(new Date());
-			message.setContent(mailMessage.getBody(), "text/html; charset=utf-8");
-			//message.setText(mailMessage.getBody());
-			Transport.send(message);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+	private void send(final NotificationMessage mailMessage,final InternetAddress[] receivers) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Session session = getSession(Boolean.FALSE);
+				MimeMessage message = new MimeMessage(session);
+				try {
+					message.setFrom(new InternetAddress(session.getProperty("mail.from")));
+					message.setRecipients(Message.RecipientType.TO, receivers);
+					message.setSubject(mailMessage.getSubject());
+					message.setSentDate(new Date());
+					message.setContent(mailMessage.getBody(), "text/html; charset=utf-8");
+					//message.setText(mailMessage.getBody());
+					Transport.send(message);
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+			}
+		}).start();
+		
 	}
 	
 	@Override

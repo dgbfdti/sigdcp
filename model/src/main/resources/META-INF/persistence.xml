@@ -9,12 +9,13 @@
 		
 		<!-- Glassfish -->
 		<!--jta-data-source>jdbc/sigdcp_oracle_prod</jta-data-source-->
-		<!--jta-data-source>jdbc/sigdcp_mysql</jta-data-source-->
+		<jta-data-source>jdbc/sigdcp_mysql</jta-data-source>
 		<!--jta-data-source>jdbc/sigdcpDS</jta-data-source-->
 		
 		<!-- JBoss -->
 		
-		<jta-data-source>java:/sigdcpDS</jta-data-source>
+		<!--jta-data-source>java:/SigdcpMysqlDS</jta-data-source-->
+		<!--jta-data-source>java:/sigdcpDS</jta-data-source-->
 		
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		

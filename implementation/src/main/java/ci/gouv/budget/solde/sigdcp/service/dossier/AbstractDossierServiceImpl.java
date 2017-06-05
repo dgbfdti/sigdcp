@@ -312,6 +312,7 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		}
 
 		if(operation==null){//mise a jour
+			System.out.println("AbstractDossierServiceImpl.saisir() Operation NULL");
 			deplacementDao.update(dossier.getDeplacement());
 			//debug(dossier);
 			dossierDao.update(dossier);
@@ -417,7 +418,7 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 			if(dossierEnCours!=null)
 				serviceException(ServiceExceptionType.DOSSIER_EN_COURS_ILLELGAL);
 			
-			Operation operation = operationService.creer(Code.NATURE_OPERATION_SAISIE,requerant);	
+			Operation operation = operationService.creer(Code.NATURE_OPERATION_SAISIE,Boolean.TRUE.equals(dossier.getDeplacement().getNature().getSceSolde()) ? null : requerant);	
 			
 			saisir(operation, dossier, dossier.getPieceJustificatives());
 		}else{

@@ -167,7 +167,7 @@ public class EtatServiceJasperImpl implements EtatService {
 				"FORMULE CONJOINT MONTANT", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_JOURNALIERE_CONJOINT+idemniteSuffix).getMontant()), 
 				"FORMULE ENFANT MONTANT", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_JOURNALIERE_ENFANT+idemniteSuffix).getMontant()), 
 				
-				EtatHelper.format(dossier.getMontantIndemnisation()), FrenchNumberToWords.convert(dossier.getMontantIndemnisation().longValue())));
+				EtatHelper.format(dossier.getMontantIndemnisation()), FrenchNumberToWords.convert(dossier.getMontantIndemnisation().longValue())+" FCFA"));
 		
 		return build(BulletinLiquidationDDEtat.class, inputStream, dataSource);
 	}
@@ -199,9 +199,9 @@ public class EtatServiceJasperImpl implements EtatService {
 		List<BondeTransportEtat> dataSource = new LinkedList<>();
 		PieceJustificative padmin = pieceJustificativeDao.readAdministrativeByDossier(pieceJustificative.getDossier());
 		BondeTransportEtat bt = new BondeTransportEtat(pieceJustificative, "Original", null,EtatHelper.format(padmin.getModel().getTypePieceJustificative().getLibelle())
-				, padmin.getNumero(), EtatHelper.format(padmin.getDateEtablissement()), "Ministère", "Transporteur", "SDDCP", "RECPSERVICE", 
+				, padmin.getNumero(), EtatHelper.format(padmin.getDateEtablissement()), pieceJustificative.getDossier().getService() ==null?"SERVICE INCONNU":pieceJustificative.getDossier().getService().getLibelle(), "Transporteur", "SDDCP", "RECPSERVICE", 
 				EtatHelper.format(new Date()), EtatHelper.format(new Date()), EtatHelper.format(new Date()), "Lieu Signature", "Budget général", "", "", "", "", "000410"
-				, EtatHelper.format(new Date()), "332", "4101", "016289", "Lieu certif", 
+				, EtatHelper.format(new Date()), "332", "4101", "016289", "Abidjan", 
 				EtatHelper.format(new Date()), "", "Materiel transporte", EtatHelper.format(padmin.getDossier().getMontantIndemnisation())
 				,documentService.genererCodeBarre(pieceJustificative));
 		dataSource.add(bonTransportEtat(bt, "BON TRANSPORT", "ORIGINAL"));

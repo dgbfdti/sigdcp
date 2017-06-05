@@ -146,7 +146,7 @@ public interface Code {
 	String LOCALITE_COTE_DIVOIRE = "CI";
 	String LOCALITE_ABIDJAN = "ABJ";
 	String LOCALITE_BOUAKE = "BK";
-	String LOCALITE_SAN_PEDRO = "SP";
+	String LOCALITE_SAN_PEDRO = "SPD";
 	
 	String LOCALITE_PARIS = "PAR";
 	

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -77,7 +78,8 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	@Override
 	protected void onDefaultSubmitAction() throws Exception {
 		CompteUtilisateur compteUtilisateur = null;
-		compteUtilisateur = compteUtilisateurService.authentifier(credentials);
+		HttpServletRequest request = Faces.getRequest();
+		compteUtilisateur = compteUtilisateurService.authentifier(credentials,request.getScheme(),request.getServerName(),request.getServerPort(),request.getContextPath());
         SecurityUtils.getSubject().login(new UsernamePasswordToken(getDto().getUsername(), getDto().getPassword(), remember));
         userSessionManager.setCompteUtilisateur(compteUtilisateur);
         SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());

@@ -6,6 +6,9 @@ import java.util.Collection;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+
+import org.omnifaces.util.Faces;
 
 import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
@@ -62,7 +65,8 @@ public class RecupererPasswordController extends AbstractFormUIController<Object
 	
 	@Override
 	protected void onDefaultSubmitAction() {
-		compteUtilisateurService.recupererPasswordEtape2(agentEtat, reponseSecretes);
+		HttpServletRequest request = Faces.getRequest();
+		compteUtilisateurService.recupererPasswordEtape2(agentEtat, reponseSecretes,request.getScheme(),request.getServerName(),request.getServerPort(),request.getContextPath());
 		
 	}
 	

@@ -210,6 +210,7 @@ public class OrganiserMissionController extends AbstractDemandeController<Missio
 		dossierMissionService.init(dossier, Code.NATURE_OPERATION_SAISIE);
 		*/
 		DossierMission dossierMission = dossierMissionService.nouveau(matricule, entity);
+		//debug(dossierMission.getTraitable().getTraitement().getOperation());
 		//debug(dossierMission.getBeneficiaire());
 		Participant participant = new Participant(dossierMissionService,entity,dossierMission,pieceJustificativeService,fichierService,validationPolicy,isEditable());
 		if(!exist && participants.add(participant)){

@@ -52,7 +52,7 @@ public class DossierMissionServiceImpl extends AbstractDossierServiceImpl<Dossie
 			dossier.getBeneficiaire().setMatricule(matricule);
 		}else
 			dossier.setBeneficiaire(agentEtat);
-		
+		dossier.getDeplacement().getNature().setSceSolde(Boolean.TRUE);// C'est toujours un PF qui créé un dossier de mission
 		init(dossier, Code.NATURE_OPERATION_SAISIE);
 		return dossier;
 	}
