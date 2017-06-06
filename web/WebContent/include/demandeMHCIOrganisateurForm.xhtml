@@ -86,9 +86,9 @@
 				<h:panelGroup rendered="#{editable}">
 					<p:message for="villeArrivee" />
 					<p:selectOneMenu id="villeArrivee" value="#{organiserMissionController.entity.deplacement.localiteArrivee}" required="#{required}"
-						converter="#{objectConverter}"  >
+						converter="#{objectConverter}" filter="true" filterMatchMode="contains" >
 						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
-						<f:selectItems value="#{villesHorsCoteDIvoire}"/>
+						<f:selectItems value="#{organiserMissionController.villesHorsCoteDIvoire}"/>
 						<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 						<f:attribute name="localiteDepart" value="#{villeDepart}" />
 					</p:selectOneMenu>	
@@ -180,14 +180,21 @@
 							<h:outputText value="#{participant.beneficiaire.matricule}" />
 					    	
 							<p:outputLabel for="nom#{iid}" value="Nom" />
-						 	<p:inputText id="nom#{iid}" value="#{participant.beneficiaire.nom}" required="#{required}" requiredMessage="#{valueRequiredMessage}" rendered="#{participant.editable}">
+						 	<p:inputText id="nom#{iid}" value="#{participant.beneficiaire.nom}" required="#{required}" requiredMessage="#{valueRequiredMessage}" 
+						 		rendered="#{participant.editable}" valueChangeListener="#{organiserMissionController.nomParticipantChanged}">
 						 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+						 		<f:attribute name="pid" value="#{participant.beneficiaire.matricule}" />
+						 		<p:ajax event="change" update=":form:responsable" />
 						 		<p:message for="@parent" />
 						 	</p:inputText>
 						 	<h:outputText value="#{participant.beneficiaire.nom}" rendered="#{not participant.editable}"/>
 						 	
 							<p:outputLabel for="prenoms#{iid}" value="Prenoms" />
-							<p:inputText id="prenoms#{iid}" value="#{participant.beneficiaire.prenoms}" rendered="#{participant.editable}"/>
+							<p:inputText id="prenoms#{iid}" value="#{participant.beneficiaire.prenoms}" rendered="#{participant.editable}"
+								valueChangeListener="#{organiserMissionController.prenomParticipantChanged}">
+								<f:attribute name="pid" value="#{participant.beneficiaire.matricule}" />
+						 		<p:ajax event="change" update=":form:responsable"/>
+							</p:inputText>
 							<h:outputText value="#{participant.beneficiaire.prenoms}" rendered="#{not participant.editable}"/>
 							
 							<p:outputLabel for="fonction" value="Fonction" />

@@ -98,7 +98,7 @@ public class Dossier  extends AbstractModel<Long>  implements Serializable{
 	@Transient private TypeDepense typeDepense;
 	@Transient private String messageId;
 	//TODO utiliser un panier doperations supplementaire a faire 
-	@Transient private Boolean transmettreBeneficiaire=false,annuler=false;
+	@Transient private Boolean transmettreBeneficiaire=false,annuler=false,autoDeleteDeplacement=Boolean.TRUE;
 	
 	public Dossier() {}
 

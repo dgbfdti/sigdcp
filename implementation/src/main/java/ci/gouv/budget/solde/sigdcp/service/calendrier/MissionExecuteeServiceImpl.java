@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import ci.gouv.budget.solde.sigdcp.dao.calendrier.MissionExecuteeDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.DeplacementDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierDao;
+import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierMissionDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
@@ -46,6 +47,7 @@ public class MissionExecuteeServiceImpl extends DefaultServiceImpl<MissionExecut
 	
 	@Inject private DeplacementService deplacementService;
 	@Inject private DossierMissionService dossierService;
+	@Inject private DossierMissionDao dossierMissionDao;
 	@Inject private DossierDao dossierDao;
 	@Inject private DeplacementDao deplacementDao;
 	@Inject private OperationService operationService;
@@ -257,5 +259,17 @@ public class MissionExecuteeServiceImpl extends DefaultServiceImpl<MissionExecut
 			liste.add(me);
 	}
 		return liste;
+	}
+
+	@Override
+	public void delete(MissionExecutee missionExecutee) {
+		for(DossierMission dossierMission : dossierMissionDao.readByDeplacement(missionExecutee.getDeplacement())){
+			dossierMission.setAutoDeleteDeplacement(Boolean.FALSE);
+			dossierService.delete(dossierMission);
+		}
+		missionExecutee.setDossierDuResponsable(null);
+		deplacementDao.delete(missionExecutee.getDeplacement());
+		missionExecutee.setDeplacement(null);
+		super.delete(missionExecutee);
 	}
 }

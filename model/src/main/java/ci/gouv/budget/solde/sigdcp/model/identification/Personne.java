@@ -84,7 +84,7 @@ public class Personne  extends Party  implements Serializable{
 	}
 	
 	public String getNomPrenoms(){
-		return nom+(StringUtils.isEmpty(prenoms)?"":(" "+prenoms));
+		return StringUtils.defaultString(nom)+(StringUtils.isBlank(prenoms)?"":(" "+prenoms));
 	}
 
 	public boolean isMasculin(){
