@@ -24,12 +24,14 @@ import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.MissionExecutee;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
+import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.service.ActionType;
 import ci.gouv.budget.solde.sigdcp.service.calendrier.MissionExecuteeService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionService;
 import ci.gouv.budget.solde.sigdcp.service.identification.AgentEtatService;
 import ci.gouv.budget.solde.sigdcp.service.indemnite.LocaliteGroupeMissionService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
+import ci.gouv.budget.solde.sigdcp.service.resources.ListeResources;
 import ci.gouv.budget.solde.sigdcp.service.utils.validaton.MissionExecuteeValidator;
 
 @Named @ViewScoped @Getter @Setter
@@ -47,13 +49,16 @@ public class OrganiserMissionController extends AbstractDemandeController<Missio
 	@Inject private LocaliteGroupeMissionService localiteGroupeMissionService;
 	
 	@Inject private MissionExecuteeValidator missionExecuteeValidator;
+	
+	@Inject private ListeResources listeResources;
 	/*
 	 * Dtos
 	 */
-	@Getter private Collection<Participant> participants = new LinkedList<>();
+	private List<Participant> participants = new LinkedList<>();
 	private String matricule;
 	boolean courrierEditable = false;
 	private List<SelectItem> typeDepenses = new ArrayList<>();
+	private List<SelectItem> villesHorsCoteDIvoire = new ArrayList<>();
 	
 	@Override
 	protected void initDto() {
@@ -68,6 +73,10 @@ public class OrganiserMissionController extends AbstractDemandeController<Missio
 			if(Code.TYPE_DEPENSE_REMBOURSEMENT.equals(typeDepense.getCode()))
 				selectItem.setLabel("Régularisation d’indemnité");
 			typeDepenses.add(selectItem);
+		}
+		
+		for(Localite localite : listeResources.getVillesHorsCoteDIvoire()){
+			villesHorsCoteDIvoire.add(new SelectItem(localite, localite.getLibelle()+"("+localite.getParent().getLibelle()+")"));
 		}
 	}
 	
@@ -218,6 +227,25 @@ public class OrganiserMissionController extends AbstractDemandeController<Missio
 		}
 	}
 	
+	public void nomParticipantChanged(ValueChangeEvent valueChangeEvent){
+		for(Participant participant : participants){
+			if(participant.getBeneficiaire().getMatricule().equals(valueChangeEvent.getComponent().getAttributes().get("pid"))){
+				participant.getBeneficiaire().setNom((String)valueChangeEvent.getNewValue());
+				participant.buildLibelle();
+				break;
+			}
+		}
+	}
+	
+	public void prenomParticipantChanged(ValueChangeEvent valueChangeEvent){
+		for(Participant participant : participants)
+			if(participant.getBeneficiaire().getMatricule().equals(valueChangeEvent.getComponent().getAttributes().get("pid"))){
+				participant.getBeneficiaire().setPrenoms((String)valueChangeEvent.getNewValue());
+				participant.buildLibelle();
+				break;
+			}
+	}
+	
 	public void supprimerParticipant(Participant participant){
 		participants.remove(participant);
 	}
@@ -226,7 +254,11 @@ public class OrganiserMissionController extends AbstractDemandeController<Missio
 		missionService.transmettreDossier(Arrays.asList((DossierMission)participant.getDossier()));
 	}
 	
-	
+	@Override
+	protected void supprimer() throws Exception {
+		super.supprimer();
+		missionService.delete(entity);
+	}
 	
 	/*
 	@Override

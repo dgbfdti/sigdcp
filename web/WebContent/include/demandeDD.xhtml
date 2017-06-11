@@ -106,7 +106,8 @@
 					</p:selectOneMenu>
 				</h:panelGroup>
 				<h:outputText value="#{controller.entity.mairieMariage}" rendered="#{not editable and controller.entity.marie}"/>
-								
+				
+				<!--				
 				<p:outputLabel for="registMar" value="Numéro du régistre de mariage" rendered="#{controller.entity.marie}"/>
 				<p:inputText id="registMar" value="#{controller.entity.numeroRegistreMariage}" required="#{requiredEnabled}"  rendered="#{editable and controller.entity.marie}">
 					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
@@ -115,6 +116,7 @@
 				<h:outputText value="#{controller.entity.numeroRegistreMariage}" rendered="#{not editable and controller.entity.marie}"/>
 	
 				<h:outputText value="" rendered="#{editable and controller.entity.marie}"/><h:outputText value="" rendered="#{editable and controller.entity.marie}"/>	
+				-->
 				
 				<h:outputText value="" rendered="#{editable}"/><h:outputText value="" rendered="#{editable}"/>
 				

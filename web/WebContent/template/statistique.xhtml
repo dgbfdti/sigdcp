@@ -58,7 +58,7 @@
 							</p:dialog>
 							
 							<p:separator/>
-							<p:dataTable id="datatable" value="#{controller.list}" var="record" >
+							<p:dataTable id="datatable" value="#{controller.list}" var="record" emptyMessage="Aucun résultat">
 							<f:facet name="header"><h:outputText value="" /> </f:facet>
 								<ui:insert name="tableau"/>	
 							</p:dataTable>				

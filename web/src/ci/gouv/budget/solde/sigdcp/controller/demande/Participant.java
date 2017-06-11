@@ -45,13 +45,9 @@ public class Participant implements Serializable {
 		
 		this.pieceEditable = peditable;
 		this.editable = dossier.getBeneficiaire().getId()==null;
-		libelle=matricule;
-		if(dossier.getBeneficiaire().getId()==null){
-			
-		}else{
-			
-			libelle += " "+dossier.getBeneficiaire().getNomPrenoms();
-		}
+		
+		buildLibelle();
+		
 		if(dossier.getTraitable().getDernierTraitement()!=null)
 			transmis = Code.NATURE_OPERATION_TRANSMISSION_SAISIE_A_BENEFICIAIRE.equals(dossier.getTraitable().getDernierTraitement().getOperation().getNature().getCode());
 		pieceJustificativeUploader.setFichierService(fichierService);
@@ -59,6 +55,18 @@ public class Participant implements Serializable {
 		pieceJustificativeUploader.setAllowedFileTypes(StringUtils.join(validationPolicy.getPieceExtensions(),"|"));
 		this.pieceJustificativeService = pieceJustificativeService;
 		updatePieceJustificatives();
+	}
+	
+	public void buildLibelle(){
+		libelle=matricule;
+		if(dossier.getBeneficiaire().getId()==null){
+			
+		}else{
+			
+			
+		}
+		if(StringUtils.isNotBlank(dossier.getBeneficiaire().getNomPrenoms()))
+			libelle += " "+dossier.getBeneficiaire().getNomPrenoms();
 	}
 	
 	protected void updatePieceJustificatives(){

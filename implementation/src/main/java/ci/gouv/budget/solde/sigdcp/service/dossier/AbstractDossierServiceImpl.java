@@ -115,8 +115,8 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 					BulletinLiquidation bulletinLiquidation = (BulletinLiquidation) traitementDossier.getPieceProduite();
 					bulletinLiquidation.setDossier(null);
 					//supprime les indemnités calculées du bulletin de liquidation
-					for(IndemniteCalculee indemniteCalculee : bulletinLiquidation.getIndemniteCalculees())
-						entityManager.remove(indemniteCalculee);
+					//for(IndemniteCalculee indemniteCalculee : bulletinLiquidation.getIndemniteCalculees())
+					//	entityManager.remove(entityManager.merge(indemniteCalculee));
 					//supprime le bulletin de liquidation
 					bulletinLiquidationDao.delete(bulletinLiquidation);
 				}else
@@ -126,9 +126,11 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 			//supprime le traitement du dossier
 			traitementDossierDao.delete(traitementDossier);
 		}
-		//supprime le deplacement
-		deplacementDao.delete(dossier.getDeplacement());
-		dossier.setDeplacement(null);
+		if(Boolean.TRUE.equals(dossier.getAutoDeleteDeplacement())){
+			//supprime le deplacement
+			deplacementDao.delete(dossier.getDeplacement());
+			dossier.setDeplacement(null);	
+		}
 		dossier.getTraitable().setDernierTraitement(null);
 		//supprime le dossier
 		super.delete(dossier);
