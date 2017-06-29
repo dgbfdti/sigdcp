@@ -19,10 +19,13 @@
 		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabPrestationCommandeMhciIndex}" />
 		    </p:menuitem> 		      
 		    
-		    <p:menuitem value="Cotation des titres de transport" outcome="tt_a_coter" rendered="#{roleManager.liquidateur}">
+		    <!-- outcome="tt_a_coter" -->
+		    <p:menuitem value="Cotation des titres de transport" url="#" rendered="#{roleManager.liquidateur}">
 		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabPrestationCotationTTIndex}"  />
 		    </p:menuitem>		    
-		    <p:menuitem value="Commande des titres de transport" outcome="cotation_tt_a_commander" rendered="#{roleManager.responsable}">
+		    
+		    <!-- outcome="cotation_tt_a_commander" -->
+		    <p:menuitem value="Commande des titres de transport" url="#" rendered="#{roleManager.responsable}">
 				<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabPrestationCommandeTTIndex}" />
 			</p:menuitem>	      
 		    

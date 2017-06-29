@@ -180,7 +180,6 @@ public class MissionExecuteeServiceImpl extends DefaultServiceImpl<MissionExecut
 				
 				missionExecutee = new MissionExecutee();
 				missionExecutee.setOrganisateur((AgentEtat) utilisateur());
-				debug(missionExecutee);
 				init(missionExecutee,Code.NATURE_OPERATION_ORGANISATION_DEPLACEMENT);
 				missionExecutee.getDeplacement().setNature(genericDao.readByClass(NatureDeplacement.class, Code.NATURE_DEPLACEMENT_MISSION_HCI));
 				missionExecutee.getDeplacement().setTypeDepense(genericDao.readByClass(TypeDepense.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE));

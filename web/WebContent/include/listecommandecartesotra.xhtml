@@ -20,13 +20,15 @@
 				<p:column headerText="Service géré" ><h:outputText value="#{record.achat.delegue.sectionGeree}"/></p:column>
 				<p:column headerText="Nombre de carte" ><h:outputText value="#{record.achat.nombreCarte}" /></p:column>
 				<p:column headerText="Date" rendered="#{controller.showDateDistributionSotra}" > 
-					<p:calendar value="#{record.dateDistributionSotra}" navigator="true" required="true" validator="#{validationManager.validateDateDistributionBCCSSotra}">
+					<p:calendar value="#{record.dateDistributionSotra}" navigator="true" required="true" validator="#{validationManager.validateDateDistributionBCCSSotra}"
+						label="Date">
 						<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 						<p:message for="@parent" />
 					</p:calendar>
 				</p:column>		
 				<p:column headerText="Date" rendered="#{controller.showDateDistributionDelegue}" > 
-					<p:calendar value="#{record.dateDistributionDelegue}" navigator="true" required="true" validator="#{validationManager.validateDateDistributionBCCSDelegue}">
+					<p:calendar value="#{record.dateDistributionDelegue}" navigator="true" required="true" validator="#{validationManager.validateDateDistributionBCCSDelegue}"
+						label="Date">
 						<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 						<p:message for="@parent" />
 						<f:attribute name="dateDistributionSotra" value="#{record.dateDistributionSotra}" />

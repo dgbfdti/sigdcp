@@ -158,16 +158,17 @@ public class EtatServiceJasperImpl implements EtatService {
 		dataSource.add(new BulletinLiquidationDDEtat(pieceJustificativeDao.readAdministrativeByDossier(dossier), 
 				pieceJustificativeDao.readByDossierByTypeId(dossier, Code.TYPE_PIECE_FEUILLE_DEPLACEMENT).iterator().next(), 
 				bulletinLiquidation, "", "", indemniteOperandeService.nombreEnfant(dossier),indemniteOperandeService.distance(dossier),dossier.getGroupe().getLibelle(), 
-				2,categorieDeplacement.getNombreJourIndemniteJournaliere(),"FORMULE IKP",EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_KILOMETRIQUE_PERSONNE+idemniteSuffix).getMontant()), 
-				"FORMULE AGENT BAGAGES", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_BAGGAGE_AGENT+idemniteSuffix).getMontant()), 
-				"FORMULE CONJOINT BAGAGES", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_BAGGAGE_CONJOINT+idemniteSuffix).getMontant()), 
-				"FORMULE ENFANT BAGAGES", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_BAGGAGE_ENFANT+idemniteSuffix).getMontant()), 
+				2,categorieDeplacement.getNombreJourIndemniteJournaliere(),"FORMULE IKP",indemniteCalculeeMontant(dossier, Code.INDEMNITE_KILOMETRIQUE_PERSONNE+idemniteSuffix), 
+				"FORMULE AGENT BAGAGES", indemniteCalculeeMontant(dossier, Code.INDEMNITE_BAGGAGE_AGENT+idemniteSuffix), 
+				"FORMULE CONJOINT BAGAGES", indemniteCalculeeMontant(dossier, Code.INDEMNITE_BAGGAGE_CONJOINT+idemniteSuffix), 
+				"FORMULE ENFANT BAGAGES", indemniteCalculeeMontant(dossier, Code.INDEMNITE_BAGGAGE_ENFANT+idemniteSuffix), 
 				
-				"FORMULE AGENT MONTANT", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_JOURNALIERE_AGENT+idemniteSuffix).getMontant()), 
-				"FORMULE CONJOINT MONTANT", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_JOURNALIERE_CONJOINT+idemniteSuffix).getMontant()), 
-				"FORMULE ENFANT MONTANT", EtatHelper.format(indemniteCalculee(dossier, Code.INDEMNITE_JOURNALIERE_ENFANT+idemniteSuffix).getMontant()), 
+				"FORMULE AGENT MONTANT", indemniteCalculeeMontant(dossier, Code.INDEMNITE_JOURNALIERE_AGENT+idemniteSuffix), 
+				"FORMULE CONJOINT MONTANT", indemniteCalculeeMontant(dossier, Code.INDEMNITE_JOURNALIERE_CONJOINT+idemniteSuffix), 
+				"FORMULE ENFANT MONTANT", indemniteCalculeeMontant(dossier, Code.INDEMNITE_JOURNALIERE_ENFANT+idemniteSuffix), 
 				
-				EtatHelper.format(dossier.getMontantIndemnisation()), FrenchNumberToWords.convert(dossier.getMontantIndemnisation().longValue())+" FCFA"));
+				dossier.getMontantIndemnisation() == null ? "NULL" :
+					EtatHelper.format(dossier.getMontantIndemnisation()), FrenchNumberToWords.convert(dossier.getMontantIndemnisation().longValue())+" FCFA"));
 		
 		return build(BulletinLiquidationDDEtat.class, inputStream, dataSource);
 	}
@@ -291,6 +292,11 @@ public class EtatServiceJasperImpl implements EtatService {
 			if(indemniteCalculee.getId().getIndeminiteId().equals(codeIndemnite))
 				return indemniteCalculee;
 		return null;
+	}
+	
+	private String indemniteCalculeeMontant(Dossier dossier,String codeIndemnite){
+		IndemniteCalculee indemniteCalculee = indemniteCalculee(dossier, codeIndemnite);
+		return indemniteCalculee == null ? "NULL" : EtatHelper.format(indemniteCalculee.getMontant());
 	}
 
 }

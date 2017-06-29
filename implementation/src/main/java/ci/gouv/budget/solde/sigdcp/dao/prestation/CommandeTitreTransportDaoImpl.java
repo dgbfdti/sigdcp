@@ -42,5 +42,14 @@ public class CommandeTitreTransportDaoImpl extends AbstractCommandeDaoImpl<Comma
 		
 	}	
 	
+	@Override
+	public Collection<CommandeTitreTransport> readByPrestataire(Long prestataire, String operationCode,String statutCode) {
+		return entityManager.createQuery("SELECT c FROM CommandeTitreTransport c WHERE c.traitable.dernierTraitement.operation.nature.code = :operation AND c.traitable.dernierTraitement.statut.code = :statut "
+				+ "AND c.prestataireDemandeCotationMission.id.prestataireId = :prestataire", clazz)
+				.setParameter("prestataire", prestataire)
+				.setParameter("operation", operationCode)
+				.setParameter("statut", statutCode)
+				.getResultList();
+	}
 }
 

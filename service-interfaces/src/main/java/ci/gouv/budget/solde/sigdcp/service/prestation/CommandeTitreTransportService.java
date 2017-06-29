@@ -10,4 +10,5 @@ public interface CommandeTitreTransportService extends AbstractPieceProduiteServ
 	CommandeTitreTransport nouveau(PrestataireDemandeCotationMission cotation, String natureOperationCode);
 
 	Collection<CommandeTitreTransport> findByPrestataire(Long prestataire);
+	Collection<CommandeTitreTransport> findByPrestataire(Long prestataire,String operationCode,String statutCode);
 }

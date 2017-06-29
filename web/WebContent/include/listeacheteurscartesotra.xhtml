@@ -10,7 +10,7 @@
 <body>
 	<ui:composition>
 		
-		<p:dataTable value="#{acheteurs}" var="carte" rowIndexVar="index">
+		<p:dataTable value="#{acheteurs}" var="carte" rowIndexVar="index" emptyMessage="Ancun résultats trouvés">
 			<f:facet name="header"><h:outputText value="Liste des inscrits" /> </f:facet>
 			<p:column headerText="#"><h:outputText value="#{index+1}" /></p:column>
 			<p:column headerText="Noms"><h:outputText value="#{carte.beneficiaire.agent.nomPrenoms}" /></p:column>

@@ -1,6 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.controller.edition;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import ci.gouv.budget.solde.sigdcp.model.dossier.BulletinLiquidation;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 import ci.gouv.budget.solde.sigdcp.service.dossier.BulletinLiquidationService;
 
@@ -28,7 +30,11 @@ public class EditionBulletinLiquidationController extends AbstractEditionControl
 	
 	@Override
 	protected List<BulletinLiquidation> load() {
-		return bulletinLiquidationService.findAll();
+		List<BulletinLiquidation> bulletinLiquidations = new ArrayList<>();
+		for(BulletinLiquidation bulletinLiquidation : bulletinLiquidationService.findAll())
+			if(bulletinLiquidation.getDossier() instanceof DossierDD)
+				bulletinLiquidations.add(bulletinLiquidation);
+		return bulletinLiquidations;
 	}
 	
 	

@@ -45,7 +45,6 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.dossier.ValidationType;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
-import ci.gouv.budget.solde.sigdcp.model.indemnite.IndemniteCalculee;
 import ci.gouv.budget.solde.sigdcp.model.traitement.NatureOperation;
 import ci.gouv.budget.solde.sigdcp.model.traitement.Operation;
 import ci.gouv.budget.solde.sigdcp.model.traitement.OperationValidationConfig;
@@ -314,7 +313,6 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		}
 
 		if(operation==null){//mise a jour
-			System.out.println("AbstractDossierServiceImpl.saisir() Operation NULL");
 			deplacementDao.update(dossier.getDeplacement());
 			//debug(dossier);
 			dossierDao.update(dossier);
@@ -421,7 +419,6 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 				serviceException(ServiceExceptionType.DOSSIER_EN_COURS_ILLELGAL);
 			
 			Operation operation = operationService.creer(Code.NATURE_OPERATION_SAISIE,Boolean.TRUE.equals(dossier.getDeplacement().getNature().getSceSolde()) ? null : requerant);	
-			
 			saisir(operation, dossier, dossier.getPieceJustificatives());
 		}else{
 			//Statut statutCourant = dossier.getDernierTraitement().getStatut();
@@ -672,6 +669,7 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		
 		String noc = dossier.getTraitable().getNatureOperation()==null?null:dossier.getTraitable().getNatureOperation().getCode();
 		OperationValidationConfig creerDossierOpConfig = operationValidationConfigDao.readByNatureOperationIdByValidationType(Code.NATURE_OPERATION_SAISIE, ValidationType.ACCEPTER);
+		
 		dossier.setDateCreation(traitementDossierDao.readByDossierByNatureOperationIdByStatutId(dossier, Code.NATURE_OPERATION_SAISIE, 
 				creerDossierOpConfig.getStatutResultat().getCode()).iterator().next().getOperation().getDate());
 		

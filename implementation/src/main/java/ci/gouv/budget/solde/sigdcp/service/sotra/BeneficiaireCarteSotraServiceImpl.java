@@ -29,6 +29,8 @@ public class BeneficiaireCarteSotraServiceImpl extends DefaultServiceImpl<Benefi
 
 	@Override
 	public void adherer(DelegueSotra delegueSotra) throws ServiceException {
+		if(delegueSotra==null)
+			serviceException("Vous devez spécifié un délégué",Boolean.FALSE);
 		BeneficiaireCarteSotra adherent = ((BeneficiaireCarteSotraDao)dao).readByAgent((AgentEtat) utilisateur());
 		if(adherent!=null){
 			if(Boolean.TRUE.equals(adherent.getValide()))

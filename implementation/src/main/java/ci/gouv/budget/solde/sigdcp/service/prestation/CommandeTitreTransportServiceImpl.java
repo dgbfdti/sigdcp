@@ -118,5 +118,14 @@ public class CommandeTitreTransportServiceImpl extends AbstractPieceProuiteServi
 		return list;
 	}
 
+	@Override
+	public Collection<CommandeTitreTransport> findByPrestataire(Long prestataire, String operationCode,String statutCode) {
+		Collection<CommandeTitreTransport> list = new ArrayList<>();
+		for(CommandeTitreTransport c : commandeTitreTransportDao.readByPrestataire(prestataire,operationCode,statutCode)){
+			init(c,null);
+			list.add(c);
+		} 
+		return list;
+	}
 
 }

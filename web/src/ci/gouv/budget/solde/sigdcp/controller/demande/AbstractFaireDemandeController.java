@@ -39,12 +39,13 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 	@Inject private AgentEtatService agentEtatService;
 	@Inject private NatureOperationService natureOperationService;
 	
-	@Setter @Getter protected NatureDeplacement natureDeplacement;
-	@Setter @Getter protected LocaliteService localiteService;
-	@Setter @Getter private String solde=null;
+	protected NatureDeplacement natureDeplacement;
+	protected LocaliteService localiteService;
+	private String solde=null;
+	protected Boolean showTypeAgent=Boolean.TRUE;
 	
 	protected CourrierDto courrierDto;
-	protected Boolean showHistoriqueTraitements=Boolean.TRUE,showBulletinLiquidation=Boolean.FALSE,showIndemnite=Boolean.FALSE;
+	protected Boolean showHistoriqueTraitements=Boolean.TRUE,showBulletinLiquidation=Boolean.FALSE,showIndemnite=Boolean.FALSE,showFichier=Boolean.TRUE;
 	
 	protected abstract DOSSIER_SERVICE getDossierService();
 	

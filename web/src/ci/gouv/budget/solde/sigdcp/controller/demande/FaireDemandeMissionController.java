@@ -43,7 +43,7 @@ public class FaireDemandeMissionController extends AbstractFaireDemandeControlle
 		
 		 showRetournerFd=entity.getFeuilleDeplacement()!=null || Code.NATURE_OPERATION_RETOUR_FD.equals(entity.getTraitable().getNatureOperation().getCode());
 		 editerRetourFd=Code.NATURE_OPERATION_RETOUR_FD.equals(entity.getTraitable().getNatureOperation().getCode());
-		
+		showFichier = Boolean.FALSE;
 	}
 	
 	@Override

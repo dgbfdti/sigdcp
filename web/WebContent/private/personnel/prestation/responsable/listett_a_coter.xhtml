@@ -10,7 +10,7 @@
 <h:body>
 	<ui:define name="metadata">
 		<f:metadata>
-        	<f:event listener="#{listeFoACoterController.preRenderView}" type="preRenderView"></f:event>
+        	<f:event listener="#{listeTitreTransportACoterController.preRenderView}" type="preRenderView"></f:event>
     	</f:metadata>
 	</ui:define>
 	
@@ -22,10 +22,10 @@
 			</ui:fragment>
 	
 			<ui:decorate template="/template/formTemplate.xhtml">
-				<ui:param name="uiController" value="#{listeFoACoterController}" />
+				<ui:param name="uiController" value="#{listeTitreTransportACoterController}" />
 				<ui:define name="contenu">	
 					<ui:decorate template="/template/dataList.xhtml">
-						<ui:param name="controller" value="#{listeFoACoterController}" />
+						<ui:param name="controller" value="#{listeTitreTransportACoterController}" />
 						<ui:define name="colonnes">
 							<p:column headerText="#{constantResources.text('numero')}" sortBy="#{record.communication.numero}" filterBy="#{record.communication.numero}">
 								<h:outputText value="#{record.dossier.id}" />

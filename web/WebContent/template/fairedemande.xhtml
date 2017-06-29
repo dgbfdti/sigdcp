@@ -21,7 +21,7 @@
 						<ui:repeat var="bl" value="#{faireDemandeController.entity.bulletinLiquidations}">	
 							<p:tabView>
 								<p:tab title="Grille" > <sigdcp:indemnitesCalculees bulletinLiquidation="#{bl}"/> </p:tab>
-								<p:tab title="Fichier" > <p:media value="/_etat_/?id=#{bl.id}" player="pdf" width="800" height="800"/> </p:tab>
+								<p:tab title="Fichier" rendered="#{faireDemandeController.showFichier}" > <p:media value="/_etat_/?id=#{bl.id}" player="pdf" width="800" height="800"/> </p:tab>
 							</p:tabView>						
 						</ui:repeat>
 					</ui:insert>

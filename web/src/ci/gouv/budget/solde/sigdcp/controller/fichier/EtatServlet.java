@@ -25,7 +25,6 @@ public class EtatServlet extends HttpServlet {
 	
 	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		Document document = documentService.findById(Long.parseLong(request.getParameter("id")));
         
 		byte[] content = etatService.build(document);

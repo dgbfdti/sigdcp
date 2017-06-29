@@ -16,5 +16,6 @@ public interface CommandeTitreTransportDao extends AbstractCommandeDao<CommandeT
 	 */
 	Collection<CommandeTitreTransport> readByPrestataire(Long prestataire);
 	
+	Collection<CommandeTitreTransport> readByPrestataire(Long prestataire,String operationCode,String statutCode);
 }
  

@@ -1,11 +1,13 @@
 package ci.gouv.budget.solde.sigdcp.controller.remboursement;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.dossier.ProjetDecision;
 
 @Named @ViewScoped
 public class ValiderProjetDecisionController extends AbstractProjetDecisionListePersonnelController implements Serializable {
@@ -18,6 +20,12 @@ public class ValiderProjetDecisionController extends AbstractProjetDecisionListe
 		listTitle="Liste des projets de décision";
 		selectLabel="bouton.selectionner";
 		showNumeroCabinet=true;
+	}
+	
+	@Override
+	public Date dateCreation(ProjetDecision projetDecision) {
+		dossierService.init(projetDecision.getDossier(), null);
+		return projetDecision.getDossier().getDateCreation();
 	}
 	
 	@Override

@@ -27,7 +27,8 @@
 								<h:outputText value="#{record.numero}" />
 							</p:column>
 							
-							<p:column headerText="#{constantResources.text('naturedeplacement')}" sortBy="#{record.dossier.deplacement.nature.libelle}" filterBy="#{record.numero}">
+							<p:column headerText="#{constantResources.text('naturedeplacement')}" sortBy="#{record.dossier.deplacement.nature.libelle}" 
+								filterBy="#{record.dossier.deplacement.nature.libelle}">
 								<h:outputText value="#{record.dossier.deplacement.nature.libelle}" />
 							</p:column>
 							

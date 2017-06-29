@@ -16,6 +16,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.ProjetDecision;
 import ci.gouv.budget.solde.sigdcp.model.traitement.Traitement;
 import ci.gouv.budget.solde.sigdcp.model.traitement.TraitementPieceProduite;
+import ci.gouv.budget.solde.sigdcp.service.dossier.DossierService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.ProjetDecisionService;
 
 public abstract class AbstractProjetDecisionListePersonnelController extends AbstractEffectuerOperationPersonnelController<ProjetDecision> implements Serializable {
@@ -26,6 +27,7 @@ public abstract class AbstractProjetDecisionListePersonnelController extends Abs
 	 * Services
 	 */
 	@Inject protected ProjetDecisionService projetDecisionService;
+	@Inject protected DossierService dossierService;
 	
 	/*
 	 * Dto

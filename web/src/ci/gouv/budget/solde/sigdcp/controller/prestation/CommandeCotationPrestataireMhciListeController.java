@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
+import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.prestation.CommandeTitreTransport;
 import ci.gouv.budget.solde.sigdcp.service.prestation.CommandeTitreTransportService;
 
@@ -33,7 +34,8 @@ public class CommandeCotationPrestataireMhciListeController extends AbstractEnti
 
 	@Override
 	protected List<CommandeTitreTransport> load() {
-		return (List<CommandeTitreTransport>) commandeTitreTransportService.findByPrestataire(userSessionManager.getCompteUtilisateur().getUtilisateur().getId());
+		return (List<CommandeTitreTransport>) commandeTitreTransportService
+				.findByPrestataire(userSessionManager.getCompteUtilisateur().getUtilisateur().getId(),Code.NATURE_OPERATION_GENERATION_BCTT,Code.STATUT_ACCEPTE);
 	}
 	
 	@Override
