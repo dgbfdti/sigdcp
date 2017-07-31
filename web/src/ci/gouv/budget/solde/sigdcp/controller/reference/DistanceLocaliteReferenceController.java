@@ -9,15 +9,14 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.primefaces.event.RowEditEvent;
 
-import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.model.geographie.DistanceEntreLocalite;
 import ci.gouv.budget.solde.sigdcp.model.geographie.DistanceEntreLocaliteId;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.service.geographie.DistanceEntreLocaliteService;
 import ci.gouv.budget.solde.sigdcp.service.resources.ListeResources;
+import lombok.Getter;
 
 @Named @ViewScoped
 public class DistanceLocaliteReferenceController extends AbstractEntiteReferenceController<DistanceEntreLocalite, DistanceEntreLocaliteId> implements Serializable {
@@ -29,7 +28,6 @@ public class DistanceLocaliteReferenceController extends AbstractEntiteReference
 	private List<SelectItem> localites = new ArrayList<>();
 	@Override
 	protected void initialisation() {
-		// TODO Auto-generated method stub
 		super.initialisation();
 		for(Localite localite : listeResources.getVillesCoteDIvoire()){
 			localites.add(new SelectItem(localite.getCode(), localite.getLibelle()));

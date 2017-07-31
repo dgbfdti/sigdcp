@@ -50,7 +50,7 @@ public class OrganiserMissionController extends AbstractDemandeController<Missio
 	
 	@Inject private MissionExecuteeValidator missionExecuteeValidator;
 	
-	@Inject private ListeResources listeResources;
+	@Inject transient private ListeResources listeResources;
 	/*
 	 * Dtos
 	 */

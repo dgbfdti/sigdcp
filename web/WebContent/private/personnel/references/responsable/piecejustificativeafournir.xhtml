@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{pieceJustificativeAFournirReferenceController.preRenderView}" type="preRenderView"/>
+    	</f:metadata>
+	</ui:define>	
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/reference.xhtml">
+				<ui:param name="referenceController" value="#{pieceJustificativeAFournirReferenceController}" />
+				<ui:define name="columns">	
+					
+					<p:ajax event="rowEdit" listener="#{pieceJustificativeAFournirReferenceController.onRowEdit}"  />  
+					<p:ajax event="rowEditCancel" listener="#{pieceJustificativeAFournirReferenceController.onRowEditCancel}"  />
+				
+					<p:column headerText="Type pièce justificative" filterBy="#{record.typePieceJustificative.libelle}">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.typePieceJustificative.libelle}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+					            	<p:message for="typePieceJustificative" />
+					            	<p:selectOneMenu style="width:200px" id="typePieceJustificative" value="#{record.typePieceJustificative}" required="true" label="Type pièce justificative" 
+					            		converter="#{objectConverter}" >
+				            			<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+				            			<f:selectItems value="#{pieceJustificativeAFournirReferenceController.typePieceJustificatives}" />
+				            		</p:selectOneMenu>				            				            	
+				            	</h:panelGroup>
+					        </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Nature de déplacement" filterBy="#{record.natureDeplacement.libelle}">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.natureDeplacement.libelle}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+					            	<p:message for="natureDeplacement" />
+					            	<p:selectOneMenu style="width:200px" id="natureDeplacement" value="#{record.natureDeplacement}" required="true" label="Nature de déplacement" 
+					            		converter="#{objectConverter}" >
+				            			<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+				            			<f:selectItems value="#{pieceJustificativeAFournirReferenceController.natureDeplacements}" />
+				            		</p:selectOneMenu>				            				            	
+				            	</h:panelGroup>
+					        </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Type personne" filterBy="#{record.typePersonne.libelle}">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.typePersonne.libelle}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+					            	<p:message for="typePersonne" />
+					            	<p:selectOneMenu style="width:200px" id="typePersonne" value="#{record.typePersonne}" required="false" label="Type personne" converter="#{objectConverter}" >
+				            			<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+				            			<f:selectItems value="#{pieceJustificativeAFournirReferenceController.typePersonnes}" />
+				            		</p:selectOneMenu>				            				            	
+				            	</h:panelGroup>
+					        </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Type dépense" filterBy="#{record.typeDepense.libelle}">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.typeDepense.libelle}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+					            	<p:message for="typeDepense" />
+					            	<p:selectOneMenu style="width:200px" id="typeDepense" value="#{record.typeDepense}" required="true" label="Type dépense" converter="#{objectConverter}" >
+				            			<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+				            			<f:selectItems value="#{pieceJustificativeAFournirReferenceController.typeDepenses}" />
+				            		</p:selectOneMenu>				            				            	
+				            	</h:panelGroup>
+					        </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        
+			        <p:column headerText="Commune"><p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.config.commune}" /></f:facet>
+			            <f:facet name="input">
+			            	<p:selectBooleanButton value="#{record.config.commune}" offLabel="Non" onLabel="Oui" required="true" label="Commune">
+			            		<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				           		<p:message for="@parent" />
+			            </p:selectBooleanButton></f:facet>
+			        </p:cellEditor></p:column>
+			        
+			        <p:column headerText="Principale"><p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.config.principale}" /></f:facet>
+			            <f:facet name="input">
+			            	<p:selectBooleanButton value="#{record.config.principale}" offLabel="Non" onLabel="Oui" required="true" label="Principale">
+			            		<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				           		<p:message for="@parent" />
+			            </p:selectBooleanButton></f:facet>
+			        </p:cellEditor></p:column>
+			        
+			        <p:column headerText="Dérivée"><p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.config.derivee}" /></f:facet>
+			            <f:facet name="input">
+			            	<p:selectBooleanButton value="#{record.config.derivee}" offLabel="Non" onLabel="Oui" required="true" label="Dérivée">
+			            		<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				           		<p:message for="@parent" />
+			            </p:selectBooleanButton></f:facet>
+			        </p:cellEditor></p:column>
+			        
+			        <p:column headerText="Délivré par" filterBy="#{record.config.derivablePar.libelle}">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.config.derivablePar.libelle}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+					            	<p:message for="derivablePar" />
+					            	<p:selectOneMenu style="width:200px" id="derivablePar" value="#{record.config.derivablePar}" required="false" label="Délivré par" converter="#{objectConverter}" >
+				            			<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+				            			<f:selectItems value="#{pieceJustificativeAFournirReferenceController.roles}" />
+				            		</p:selectOneMenu>				            				            	
+				            	</h:panelGroup>
+					        </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        
+			        <p:column headerText="Conditionnée"><p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.config.conditionnee}" /></f:facet>
+			            <f:facet name="input">
+			            	<p:selectBooleanButton value="#{record.config.conditionnee}" offLabel="Non" onLabel="Oui" required="true" label="Conditionnée">
+			            		<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				           		<p:message for="@parent" />
+			            </p:selectBooleanButton></f:facet>
+			        </p:cellEditor></p:column>
+			        
+			        <p:column headerText="Administrative"><p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.config.administrative}" /></f:facet>
+			            <f:facet name="input">
+			            	<p:selectBooleanButton value="#{record.config.administrative}" offLabel="Non" onLabel="Oui" required="true" label="Administrative">
+			            		<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				           		<p:message for="@parent" />
+			            </p:selectBooleanButton></f:facet>
+			        </p:cellEditor></p:column>
+			        
+			        <p:column headerText="Original"><p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.original}" /></f:facet>
+			            <f:facet name="input">
+			            	<p:selectBooleanButton value="#{record.original}" offLabel="Non" onLabel="Oui" required="true" label="Original">
+			            		<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				           		<p:message for="@parent" />
+			            </p:selectBooleanButton></f:facet>
+			        </p:cellEditor></p:column>
+				</ui:define>
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

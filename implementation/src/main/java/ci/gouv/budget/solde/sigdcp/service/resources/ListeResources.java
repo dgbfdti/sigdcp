@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 import ci.gouv.budget.solde.sigdcp.dao.DynamicEnumerationDao;
 import ci.gouv.budget.solde.sigdcp.dao.calendrier.ExerciceDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.NatureDeplacementDao;
+import ci.gouv.budget.solde.sigdcp.dao.dossier.TypePieceJustificativeDao;
 import ci.gouv.budget.solde.sigdcp.dao.geographie.LocaliteDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.FonctionDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.SectionDao;
@@ -23,6 +24,7 @@ import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
+import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.ValidationType;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.geographie.TypeLocalite;
@@ -36,6 +38,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.Role;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.identification.TypePersonne;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypePrestataire;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeSection;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
@@ -53,7 +56,18 @@ public class ListeResources {
 	@Inject private DynamicEnumerationDao dynamicEnumerationDao;
 	@Inject private PrestataireDao prestataireDao;
 	@Inject private TypeSectionDao typeSectionDao;
+	@Inject private TypePieceJustificativeDao typePieceJustificativeDao;
 	@Inject private SectionDao sectionDao;
+	
+	@Produces @Named
+    public List<TypePersonne> getTypePersonnes(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(TypePersonne.class));
+    }
+	
+	@Produces @Named
+    public List<TypePieceJustificative> getTypePieceJustificatives(){
+    	return new LinkedList<>(typePieceJustificativeDao.readAll());
+    }
 	
 	@Produces @Named
     public List<TypeSection> getTypeSections(){

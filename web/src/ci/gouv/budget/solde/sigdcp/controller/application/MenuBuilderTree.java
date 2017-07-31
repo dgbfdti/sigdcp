@@ -341,6 +341,7 @@ public class MenuBuilderTree implements Serializable {
 		menuManager.addMenuItem(block,"menu.entitereference.section",null, "paramsection",new Object[]{});
 		menuManager.addMenuItem(block,"menu.entitereference.typepiecejustificative",null, "paramtypepiecejustificative",new Object[]{});
 		menuManager.addMenuItem(block,"menu.entitereference.typepieceproduite",null, "paramtypepieceproduite",new Object[]{});
+		menuManager.addMenuItem(block,"menu.entitereference.piecejustificativeafournir",null, "parampiecejustificativeafournir",new Object[]{});
 		
 		menuManager.addMenuItem(block,"menu.entitereference.role",null, "paramrole",new Object[]{});
 		menuManager.addMenuItem(block,"menu.entitereference.categoriedeplacement",null, "paramcategoriedeplacement",new Object[]{});
@@ -359,6 +360,7 @@ public class MenuBuilderTree implements Serializable {
 		menuManager.addMenuItem(block,"menu.entitereference.formuleindemnite",null, "paramformuleindemnite",new Object[]{});
 		menuManager.addMenuItem(block,"menu.entitereference.localite",null, "paramlocalite",new Object[]{});
 		menuManager.addMenuItem(block,"menu.entitereference.cercueil",null, "paramcercueil",new Object[]{});
+		
 	}
 	
 	private void statistique(){

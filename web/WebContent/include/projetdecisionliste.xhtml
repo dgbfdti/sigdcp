@@ -27,7 +27,7 @@
 				</p:column>	
 				
 				<p:column headerText="Numéro Cabinet" rendered="#{controller.showNumeroCabinet}">
-					<p:inputText value="#{record.numeroCabinet}" required="true" label="Numéro Cabinet">
+					<p:inputText value="#{record.numeroCabinet}" required="false" label="Numéro Cabinet" >
 						<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 						<p:message for="@parent" />
 					</p:inputText>

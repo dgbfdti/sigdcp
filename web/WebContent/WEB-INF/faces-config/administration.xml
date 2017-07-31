@@ -53,6 +53,13 @@
    <to-view-id>/private/personnel/references/responsable/typepiecejustificative.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
+  
+  <navigation-case>
+	<from-outcome>parampiecejustificativeafournir</from-outcome>
+	<to-view-id>/private/personnel/references/responsable/piecejustificativeafournir.xhtml</to-view-id>
+	<redirect />
+  </navigation-case>
+  
   <navigation-case>
    <from-outcome>paramtypepieceproduite</from-outcome>
    <to-view-id>/private/personnel/references/responsable/typepieceproduite.xhtml</to-view-id>
