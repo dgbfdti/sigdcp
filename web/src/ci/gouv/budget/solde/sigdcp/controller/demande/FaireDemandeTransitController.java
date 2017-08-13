@@ -8,14 +8,14 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import lombok.Getter;
-import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierTransitService;
 import ci.gouv.budget.solde.sigdcp.service.utils.validaton.AbstractValidator;
 import ci.gouv.budget.solde.sigdcp.service.utils.validaton.DossierTransitValidator;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Named @ViewScoped
@@ -27,7 +27,7 @@ public class FaireDemandeTransitController extends AbstractFaireDemandeControlle
 	 * Services
 	 */
 	@Inject private DossierTransitService dossierTransitService;
-	 
+	
 	@Inject private DossierTransitValidator validator;
 	
 	@Getter @Setter private Boolean mae;
@@ -36,6 +36,7 @@ public class FaireDemandeTransitController extends AbstractFaireDemandeControlle
 	protected void initialisation() {
 		super.initialisation();
 		mae = Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE.equals(entity.getDeplacement().getNature().getCode());
+		
 	}
 		
 	@Override

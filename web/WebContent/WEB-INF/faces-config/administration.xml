@@ -34,6 +34,16 @@
    <redirect/>
   </navigation-case>
   <navigation-case>
+   <from-outcome>paramindemnitetranchedistance</from-outcome>
+   <to-view-id>/private/personnel/references/responsable/indemnitetranchedistance.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>paramindemnitetranchecercueil</from-outcome>
+   <to-view-id>/private/personnel/references/responsable/indemnitetranchecercueil.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
    <from-outcome>paramfonction</from-outcome>
    <to-view-id>/private/personnel/references/responsable/fonction.xhtml</to-view-id>
    <redirect/>

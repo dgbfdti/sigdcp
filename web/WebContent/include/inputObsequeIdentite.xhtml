@@ -39,9 +39,10 @@
 			
 			<p:outputLabel for="matricule#{iid}" value="Matricule" rendered="#{personneDto.agentEtat}" />
 			<p:inputText id="matricule#{iid}" value="#{personneDto.personne.matricule}" required="#{required}" validator="#{validationManager.validateMatricule}" 
-				rendered="#{personneDto.editable and personneDto.agentEtat}">
+				rendered="#{personneDto.editable and personneDto.agentEtat}" valueChangeListener="#{faireDemandeObsequesController.matriculeListener}" widgetVar="azerty" style="text-transform: uppercase">
 				<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 				<f:attribute name="typePersonne" value="#{typePersonne}"/>
+				<p:ajax event="change" update="panelIdentite#{iid}" />
 				<p:message for="@parent" />
 			</p:inputText>
 			<h:outputText value="#{personneDto.personne.matricule}" rendered="#{not personneDto.editable and personneDto.agentEtat}" />

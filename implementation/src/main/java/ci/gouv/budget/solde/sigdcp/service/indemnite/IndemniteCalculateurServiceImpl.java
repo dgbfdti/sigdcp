@@ -65,6 +65,7 @@ public class IndemniteCalculateurServiceImpl implements IndemniteCalculateurServ
 					dossier.setMontantIndemnisation(dossier.getMontantIndemnisation().add(resultat));
 					dossier.getIndemniteCalculees().add(new IndemniteCalculee(new IndemniteCalculeeId(dossier.getId(),indemnite.getCode()),resultat,indemnite));
 				} catch (ScriptException e) {
+					e.printStackTrace();
 					throw new ServiceException(e);
 				}
 		}

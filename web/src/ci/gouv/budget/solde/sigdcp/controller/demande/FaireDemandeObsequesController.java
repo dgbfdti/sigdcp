@@ -2,9 +2,12 @@ package ci.gouv.budget.solde.sigdcp.controller.demande;
 
 import java.io.Serializable;
 
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.apache.commons.lang3.StringUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -47,6 +50,12 @@ public class FaireDemandeObsequesController extends AbstractFaireDemandeControll
 		
 		agentConstatataireDto = new IdentitePersonneDTO(new AgentEtat(),Boolean.FALSE,isEditable());
 	}
+	
+	@Override
+	protected void initDto() {
+		super.initDto();
+		entity.getDeplacement().getNature().setSceSolde(StringUtils.isNotBlank(solde));
+	}
 
 	@Override
 	protected DossierObsequesService getDossierService() {
@@ -57,6 +66,10 @@ public class FaireDemandeObsequesController extends AbstractFaireDemandeControll
 		return entity.getBeneficiaire();
 	}
 	
-	
+	@Override
+	public void matriculeListener(ValueChangeEvent valueChangeEvent) {
+		super.matriculeListener(valueChangeEvent);
+		defuntDto.setPersonne(entity.getBeneficiaire());
+	}
 }
 		

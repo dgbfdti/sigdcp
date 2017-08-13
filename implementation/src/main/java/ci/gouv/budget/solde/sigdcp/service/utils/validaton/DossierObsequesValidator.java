@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 import javax.validation.constraints.AssertTrue;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierObseques;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
@@ -29,10 +26,11 @@ public class DossierObsequesValidator extends AbstractDossierValidator<DossierOb
 		return true;
 	}
 	
-	@AssertTrue(message="le date de naissance du declarant n'est pas valide",groups=Client.class)
+	@AssertTrue(message="la date de naissance du declarant n'est pas valide",groups=Client.class)
 	public boolean isValidDateNaissanceDeclarant(){
+		if(Boolean.TRUE.equals(object.getDeplacement().getNature().getSceSolde()))
+			return Boolean.TRUE;
 		try {
-			System.out.println("Ayant droit : "+ToStringBuilder.reflectionToString(object.getBeneficiaire().getAyantDroit(),ToStringStyle.MULTI_LINE_STYLE));
 			validationPolicy.validateDateNaissance(object.getBeneficiaire().getAyantDroit().getDateNaissance());
 			return true;
 		} catch (Exception e) {

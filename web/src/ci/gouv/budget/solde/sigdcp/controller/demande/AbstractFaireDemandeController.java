@@ -19,11 +19,13 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
+import ci.gouv.budget.solde.sigdcp.model.dossier.ProjetDecision;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.ActionType;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.NatureOperationService;
+import ci.gouv.budget.solde.sigdcp.service.dossier.ProjetDecisionService;
 import ci.gouv.budget.solde.sigdcp.service.geographie.LocaliteService;
 import ci.gouv.budget.solde.sigdcp.service.identification.AgentEtatService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
@@ -36,16 +38,19 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 	
 	@Inject transient private ServiceUtils serviceUtils;
 	
+	@Inject private ProjetDecisionService projetDecisionService;
 	@Inject private AgentEtatService agentEtatService;
 	@Inject private NatureOperationService natureOperationService;
 	
 	protected NatureDeplacement natureDeplacement;
 	protected LocaliteService localiteService;
-	private String solde=null;
+	protected String solde=null;
 	protected Boolean showTypeAgent=Boolean.TRUE;
 	
 	protected CourrierDto courrierDto;
-	protected Boolean showHistoriqueTraitements=Boolean.TRUE,showBulletinLiquidation=Boolean.FALSE,showIndemnite=Boolean.FALSE,showFichier=Boolean.TRUE;
+	protected Boolean showHistoriqueTraitements=Boolean.TRUE,showBulletinLiquidation=Boolean.FALSE,showIndemnite=Boolean.FALSE,showFichier=Boolean.TRUE
+			,showProjetDecision=Boolean.FALSE;
+	protected ProjetDecision projetDecision;
 	
 	protected abstract DOSSIER_SERVICE getDossierService();
 	
@@ -174,6 +179,9 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 			}
 		});
 		*/
+		
+		projetDecision = projetDecisionService.findByDemande(entity);
+		showProjetDecision = projetDecision!=null;
 	}
 	
 	protected String action(){

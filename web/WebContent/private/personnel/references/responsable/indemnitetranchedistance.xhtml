@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{indemniteTrancheDistanceReferenceController.preRenderView}" type="preRenderView"/>
+    	</f:metadata>
+	</ui:define>	
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/reference.xhtml">
+				<ui:param name="referenceController" value="#{indemniteTrancheDistanceReferenceController}" />
+				<ui:define name="columns">	
+					
+					<p:ajax event="rowEdit" listener="#{indemniteTrancheDistanceReferenceController.onRowEdit}"  />  
+					<p:ajax event="rowEditCancel" listener="#{indemniteTrancheDistanceReferenceController.onRowEditCancel}"  />
+				
+					<p:column headerText="Catégorie de déplacement" filterBy="#{record.categorieDeplacement.libelle}">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.categorieDeplacement.libelle}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+					            	<p:message for="categorieDeplacement" />
+					            	<p:selectOneMenu style="width:200px" id="categorieDeplacement" value="#{record.categorieDeplacement}" required="true" label="Catégorie de déplacement" 
+					            		converter="#{objectConverter}" >
+				            			<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+				            			<f:selectItems value="#{indemniteTrancheDistanceReferenceController.categorieDeplacements}" />
+				            		</p:selectOneMenu>				            				            	
+				            	</h:panelGroup>
+					        </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Minimum">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.intervalleMin}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+					            	<p:message for="minimum" />
+					            	<p:inputText id="minimum" value="#{record.intervalleMin}" required="true" label="Minimum" />		            				            	
+				            	</h:panelGroup>
+					        </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Maximum">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.intervalleMax}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+					            	<p:message for="maximum" />
+					            	<p:inputText id="maximum" value="#{record.intervalleMax}" required="true" label="Maximum" />		            				            	
+				            	</h:panelGroup>
+					        </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Montant">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.montant}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+					            	<p:message for="montant" />
+					            	<p:inputText id="montant" value="#{record.montant}" required="true" label="Montant" />		            				            	
+				            	</h:panelGroup>
+					        </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        
+				</ui:define>
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

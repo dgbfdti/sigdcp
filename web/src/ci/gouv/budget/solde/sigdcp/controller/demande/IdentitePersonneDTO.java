@@ -11,7 +11,7 @@ public class IdentitePersonneDTO implements Serializable {
 
 	private static final long serialVersionUID = 1673292991759713069L;
 	
-	@Getter private Personne personne;
+	@Getter @Setter private Personne personne;
 	
 	@Getter @Setter
 	private Boolean agentEtat=null,showQuestionAgentEtat=Boolean.TRUE,editable=Boolean.TRUE,readPieceIdentite=Boolean.FALSE,

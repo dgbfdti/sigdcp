@@ -361,6 +361,8 @@ public class MenuBuilderTree implements Serializable {
 		menuManager.addMenuItem(block,"menu.entitereference.localite",null, "paramlocalite",new Object[]{});
 		menuManager.addMenuItem(block,"menu.entitereference.cercueil",null, "paramcercueil",new Object[]{});
 		
+		menuManager.addMenuItem(block,"menu.entitereference.indemnitetranchedistance",null, "paramindemnitetranchedistance",new Object[]{});
+		menuManager.addMenuItem(block,"menu.entitereference.indemnitetranchecercueil",null, "paramindemnitetranchecercueil",new Object[]{});
 	}
 	
 	private void statistique(){

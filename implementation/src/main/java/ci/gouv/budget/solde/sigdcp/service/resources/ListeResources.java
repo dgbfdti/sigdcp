@@ -21,6 +21,7 @@ import ci.gouv.budget.solde.sigdcp.dao.identification.TypeSectionDao;
 import ci.gouv.budget.solde.sigdcp.dao.prestation.PrestataireDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
+import ci.gouv.budget.solde.sigdcp.model.dossier.CategorieDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
@@ -41,6 +42,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypePersonne;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypePrestataire;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeSection;
+import ci.gouv.budget.solde.sigdcp.model.indemnite.Cercueil;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
@@ -124,6 +126,16 @@ public class ListeResources {
     @Produces @Named
     public List<Categorie> getCategories(){
     	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Categorie.class)); 
+    }
+    
+    @Produces @Named
+    public List<CategorieDeplacement> getCategorieDeplacements(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(CategorieDeplacement.class)); 
+    }
+    
+    @Produces @Named
+    public List<Cercueil> getCercueils(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Cercueil.class)); 
     }
      
     @Produces @Named

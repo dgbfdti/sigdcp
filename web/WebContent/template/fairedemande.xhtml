@@ -16,6 +16,9 @@
 				<p:tab id="demandeTab" title="Demande #{faireDemandeController.read or faireDemandeController.update?faireDemandeController.entity.numero:null}">
 					<ui:insert name="demande"/>
 				</p:tab>
+				<p:tab title="Projet de décision" rendered="#{faireDemandeController.showProjetDecision}">
+					<p:media value="/_etat_/?id=#{faireDemandeController.projetDecision.id}" player="pdf" width="800" height="800"/>
+				</p:tab>
 				<p:tab title="Indemnités" rendered="#{faireDemandeController.showIndemnite}">
 					<ui:insert name="indemnite">
 						<ui:repeat var="bl" value="#{faireDemandeController.entity.bulletinLiquidations}">	

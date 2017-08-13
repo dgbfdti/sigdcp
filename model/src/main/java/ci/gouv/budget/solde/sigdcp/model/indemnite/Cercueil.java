@@ -11,13 +11,11 @@ package ci.gouv.budget.solde.sigdcp.model.indemnite;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
 
+import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 
 @Getter @Setter 
 @Entity

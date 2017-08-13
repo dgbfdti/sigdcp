@@ -51,9 +51,11 @@ public class ProjetDecisionServiceImpl extends AbstractPieceProuiteServiceImpl<P
 		Collection<ProjetDecision>  liste;
 		if(Code.NATURE_OPERATION_ETABLISSEMENT_PROJDEC.equals(natureOperationCode)){
 			//dossiers conforme
-			Collection<Dossier> dossiers = dossierDao.readByNatureDeplacementsByNatureOperationIdByStatutId(natureDeplacements,Code.NATURE_OPERATION_CONFORMITE,Code.STATUT_ACCEPTE);
+			Collection<Dossier> dossiers = dossierDao.readByNatureDeplacementsByTypeDepenseIdByNatureOperationIdByStatutId(natureDeplacements,Code.TYPE_DEPENSE_REMBOURSEMENT
+					,Code.NATURE_OPERATION_CONFORMITE,Code.STATUT_ACCEPTE);
 			//dossier differe
-			dossiers.addAll(dossierDao.readByNatureDeplacementsByNatureOperationIdByStatutId(natureDeplacements,natureOperationCode,Code.STATUT_DIFFERE));
+			dossiers.addAll(dossierDao.readByNatureDeplacementsByTypeDepenseIdByNatureOperationIdByStatutId(natureDeplacements,Code.TYPE_DEPENSE_REMBOURSEMENT
+					,natureOperationCode,Code.STATUT_DIFFERE));
 			liste = new ArrayList<>();
 			for(Dossier dossier : dossiers){
 				dossierService.init(dossier, natureOperationCode);
@@ -88,5 +90,10 @@ public class ProjetDecisionServiceImpl extends AbstractPieceProuiteServiceImpl<P
 		traitementDossierDao.create(td);
 		bl.getDossier().getTraitable().setDernierTraitement(td);
 		dossierDao.update(bl.getDossier());
+	}
+
+	@Override
+	public ProjetDecision findByDemande(Dossier dossier) {
+		return ((ProjetDecisionDao)dao).readByDemande(dossier);
 	}
 }
